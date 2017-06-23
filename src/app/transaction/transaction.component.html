@@ -1,0 +1,28 @@
+
+<div class="container-fluid">
+  <div class="row">
+
+    <div>
+      <input type="file" (change)="getFiles($event)"/>
+    </div>
+    <div class="col-md-12" [@cardtable1]>
+      <lbd-table
+        [title]="'Striped Table with Hover'"
+        [subtitle]="'Here is a subtitle for this table'"
+        [data]="tableData">
+      </lbd-table>
+    </div>
+
+
+  </div>
+  <div class="container">
+    <div class="row" *ngFor="let transaction of transactions">
+      <div class="card card-block">
+        <h4 class="card-title">{{ transaction.title }}</h4>
+        <p class="card-text">{{transaction.body}}</p>
+        <a href="#" class="card-link">Card link</a>
+        <a href="#" class="card-link">Another link</a>
+      </div>
+    </div>
+  </div>
+</div>

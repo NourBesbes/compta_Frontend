@@ -10,11 +10,12 @@ import { FooterLayoutComponent } from './footer-layout/footer-layout.component';
 import { LbdModule } from './lbd/lbd.module';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { UserComponent } from './user/user.component';
-import { TableComponent } from './table/table.component';
+import { TransactionComponent } from './transaction/transaction.component';
 import { TypographyComponent } from './banque/typography.component';
 import { IconsComponent } from './icons/icons.component';
 import { MapsComponent } from './maps/maps.component';
 import { NotificationsComponent } from './notifications/notifications.component';
+import {TransactionService} from "./transaction/transaction .service";
 
 const appRoutes: Routes = [
   { path: 'maps', component: MapsComponent },
@@ -23,7 +24,7 @@ const appRoutes: Routes = [
     [
       { path: 'dashboard', component: DashboardComponent },
       { path: 'user', component: UserComponent },
-      { path: 'table', component: TableComponent },
+      { path: 'transaction', component: TransactionComponent },
       { path: 'banque', component: TypographyComponent },
       { path: 'icons', component: IconsComponent },
       { path: 'notifications', component: NotificationsComponent },
@@ -38,7 +39,7 @@ const appRoutes: Routes = [
     FooterLayoutComponent,
     DashboardComponent,
     UserComponent,
-    TableComponent,
+    TransactionComponent,
     TypographyComponent,
     IconsComponent,
     MapsComponent,
@@ -52,7 +53,7 @@ const appRoutes: Routes = [
     AgmCoreModule.forRoot({ apiKey: 'AIzaSyAEPDOJl5CPLz6NZcMqJBqZWfVXec3UsJg' }),
     LbdModule
   ],
-  providers: [],
+  providers: [TransactionService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
