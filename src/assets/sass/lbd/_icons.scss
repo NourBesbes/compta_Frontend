@@ -4,13 +4,13 @@
 
 // padding suprascris pentru iconite 7s si fa, test!
     padding: 8px;
-    
+
 	[class^="icon-"]{
 		height: $height-icon-message;
 		width:  $width-icon-message;
 		background-repeat: no-repeat;
 		background-size: 100%;
-	}	
+	}
 
 	&.icon-sm {
 		@include icon-shape ($size-icon-sm, $padding-icon-sm, $border-radius-icon-sm);
@@ -18,22 +18,22 @@
 		[class^="icon-"]{
 			height: $height-icon-message-sm;
 			width:  $width-icon-message-sm;
-							
+
 		}
-		
+
 		[class*="pe-7s-"]{
-        	width: 25px;
-        	height: 25px;
-        	line-height: 25px;
-        	font-size: 25px;
+        	width: 50px;
+        	height: 50px;
+        	line-height: 50px;
+        	font-size: 50px;
         	text-align: center;
         	color: #FFFFFF;
     	}
     	[class*="fa-"]{
-        	width: 25px;
-        	height: 25px;
-        	line-height: 25px;
-        	font-size: 19px;
+        	width: 50px;
+        	height: 50px;
+        	line-height: 50px;
+        	font-size: 50px;
         	text-align: center;
         	color: #FFFFFF;
     	}
@@ -43,7 +43,7 @@
     	width: 50px;
     	height: 50px;
     	line-height: 50px;
-    	font-size: 46px;
+    	font-size: 50px;
     	text-align: center;
     	color: #FFFFFF;
 	}
@@ -100,7 +100,7 @@
     h4,
     .h4{
         margin-top: 20px;
-        margin-bottom: 5px;   
+        margin-bottom: 5px;
     }
 }
 

@@ -1,28 +1,97 @@
 <accordion>
   <accordion-group #group1 [isOpen]="true">
 
-      <div accordion-heading>
-        Gestion des budgets
-        <i class="pull-right float-xs-right glyphicon"
-           [ngClass]="{'glyphicon-chevron-up': group1?.isOpen, 'glyphicon-chevron-down': !group1?.isOpen}"></i>
+    <div accordion-heading>
+      Gestion des budgets
+      <i class="pull-right float-sm-right glyphicon arrows-btn"
+         [ngClass]="{'pe-7s-angle-up': group1?.isOpen, 'pe-7s-angle-down': !group1?.isOpen}" ></i>
+    </div>
+    <div class="col-md-12">
+      <div class="search" style="margin-left: 70%">
+        <input type="text" class="form-control" id="budget" name="budget" required placeholder="Recherche Budget">
+        <button class="btn  btn-simple pull-right custom-btn"><i class="fa fa-search custom-loop-icon" ></i></button>
       </div>
-    <p> recherche par nom</p>
-    <p> tableau des budgets</p>
+    </div>
+    <br>
+    <br>
+    <div class="content table-responsive table-full-width">
+      <table class="table table-hover table-striped">
+        <thead>
+        <tr>
+          <th>Nom budget</th>
+          <th class="td-actions text-center">Actions</th>
+
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td>budget 0</td>
+          <td class="td-actions text-center">
+            <button title="Edit Task" class="btn btn-info btn-simple btn-sm arrows-btn">
+              <i class="fa fa-edit"></i>
+            </button>
+            <button type="button" title="Remove" class="btn btn-danger btn-simple btn-s arrows-btn">
+              <i class="fa fa-times"></i>
+            </button>
+          </td>
+
+        </tr>
+        <tr>
+          <td>budget 1</td>
+          <td class="td-actions text-center">
+            <button title="Edit Task" class="btn btn-info btn-simple btn-s arrows-btn">
+              <i class="fa fa-edit"></i>
+            </button>
+            <button type="button" title="Remove" class="btn btn-danger btn-simple btn-sm arrows-btn">
+              <i class="fa fa-times"></i>
+            </button>
+          </td>
+
+        </tr>
+        <tr>
+          <td>budget 2</td>
+          <td class="td-actions text-center">
+            <button title="Edit Task" class="btn btn-info btn-simple btn-sm arrows-btn">
+              <i class="fa fa-edit"></i>
+            </button>
+            <button type="button" title="Remove" class="btn btn-danger btn-simple btn-sm arrows-btn">
+              <i class="fa fa-times"></i>
+            </button>
+          </td>
+
+        </tr>
+        <tr>
+          <td>budget 3</td>
+          <td class="td-actions text-center">
+            <button title="Edit Task" class="btn btn-info btn-simple btn-sm arrows-btn">
+              <i class="fa fa-edit"></i>
+            </button>
+            <button type="button" title="Remove" class="btn btn-danger btn-simple btn-sm arrows-btn">
+              <i class="fa fa-times"></i>
+            </button>
+          </td>
+
+        </tr>
+        </tbody>
+      </table>
+    </div>
+
+
   </accordion-group>
-  <accordion-group #group2  [isOpen]="true">
+  <accordion-group #group2 [isOpen]="true">
     <div accordion-heading>
       Gestion des sous budgets
-      <i class="pull-right float-xs-right glyphicon"
-         [ngClass]="{'glyphicon-chevron-up': group2?.isOpen, 'glyphicon-chevron-down': !group2?.isOpen}"></i>
+      <i class="pull-right float-xs-right glyphicon arrows-btn" style="font-size: medium;"
+         [ngClass]="{'pe-7s-angle-up': group2?.isOpen, 'pe-7s-angle-down': !group2?.isOpen}"></i>
     </div>
     dropdown menu pour chosir le budget
     En fonction du budget chosi affichage du tableau des sous budgets
   </accordion-group>
-  <accordion-group #group3  [isOpen]="true">
+  <accordion-group #group3 [isOpen]="true">
     <div accordion-heading>
       Gestion des périodes comptables
-      <i class="pull-right float-xs-right glyphicon"
-         [ngClass]="{'glyphicon-chevron-up': group3?.isOpen, 'glyphicon-chevron-down': !group3?.isOpen}"></i>
+      <i class="pull-right float-xs-right glyphicon arrows-btn"
+         [ngClass]="{'pe-7s-angle-up': group3?.isOpen, 'pe-7s-angle-down': !group3?.isOpen}"></i>
     </div>
     I dont't know what to put here
   </accordion-group>
