@@ -1,0 +1,29 @@
+<accordion>
+  <accordion-group #group1 [isOpen]="true">
+
+      <div accordion-heading>
+        Gestion des budgets
+        <i class="pull-right float-xs-right glyphicon"
+           [ngClass]="{'glyphicon-chevron-up': group1?.isOpen, 'glyphicon-chevron-down': !group1?.isOpen}"></i>
+      </div>
+    <p> recherche par nom</p>
+    <p> tableau des budgets</p>
+  </accordion-group>
+  <accordion-group #group2  [isOpen]="true">
+    <div accordion-heading>
+      Gestion des sous budgets
+      <i class="pull-right float-xs-right glyphicon"
+         [ngClass]="{'glyphicon-chevron-up': group2?.isOpen, 'glyphicon-chevron-down': !group2?.isOpen}"></i>
+    </div>
+    dropdown menu pour chosir le budget
+    En fonction du budget chosi affichage du tableau des sous budgets
+  </accordion-group>
+  <accordion-group #group3  [isOpen]="true">
+    <div accordion-heading>
+      Gestion des périodes comptables
+      <i class="pull-right float-xs-right glyphicon"
+         [ngClass]="{'glyphicon-chevron-up': group3?.isOpen, 'glyphicon-chevron-down': !group3?.isOpen}"></i>
+    </div>
+    I dont't know what to put here
+  </accordion-group>
+</accordion>

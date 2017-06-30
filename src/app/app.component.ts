@@ -18,7 +18,7 @@ export class AppComponent implements OnInit {
       { type: NavItemType.Sidebar, title: 'Transactions', routerLink: 'table', iconClass: 'pe-7s-note2' },
       { type: NavItemType.Sidebar, title: 'Banque', routerLink: 'banque', iconClass: 'pe-7s-news-paper' },
       { type: NavItemType.Sidebar, title: 'Icons', routerLink: 'icons', iconClass: 'pe-7s-science' },
-      { type: NavItemType.Sidebar, title: 'Maps', routerLink: 'maps', iconClass: 'pe-7s-map-marker' },
+      { type: NavItemType.Sidebar, title: 'Configuration', routerLink: 'config', iconClass: 'pe-7s-map-marker' },
       { type: NavItemType.Sidebar, title: 'Notifications', routerLink: 'notifications', iconClass: 'pe-7s-bell' },
 
       { type: NavItemType.NavbarLeft, title: 'Dashboard', iconClass: 'fa fa-dashboard' },

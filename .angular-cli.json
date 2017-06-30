@@ -23,6 +23,7 @@
         "assets/css/light-bootstrap-dashboard.css",
         "assets/css/pe-icon-7-stroke.css",
         "styles.css"
+
       ],
       "scripts": [
         "../node_modules/jquery/dist/jquery.js",
