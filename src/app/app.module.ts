@@ -14,17 +14,26 @@ import { TypographyComponent } from './banque/typography.component';
 import { IconsComponent } from './icons/icons.component';
 import { ConfigComponent } from './config/config.component';
 import { NotificationsComponent } from './notifications/notifications.component';
-
 import {TransactionService} from './transaction/transaction .service';
-
-
+import { AlertComponent } from './_directives/index';
+import { AuthGuard } from './_guards/index';
+import { AlertService, AuthenticationService, UserService } from './_services/index';
+import { HomeComponent } from './home/index';
+import { LoginComponent } from './login/index';
+import { RegisterComponent } from './register/index';
+import { AdminHomeComponent } from './admin-home/admin-home.component';
+import { LocalStorageModule } from 'angular-2-local-storage';
 import {PopupModule} from 'ng2-opd-popup';
 
 
 
 const appRoutes: Routes = [
-  {
-    path: '', component: FooterLayoutComponent, children:
+  //{ path: '', component: HomeComponent, canActivate: [AuthGuard] },
+  { path: 'admin', component: AdminHomeComponent, canActivate: [AuthGuard] },
+  { path: 'login', component: LoginComponent },
+  { path: 'register', component: RegisterComponent },
+  
+  {path: '', component: FooterLayoutComponent, canActivate: [AuthGuard], children:
     [
       { path: 'dashboard', component: DashboardComponent },
       { path: 'user', component: UserComponent },
@@ -36,7 +45,9 @@ const appRoutes: Routes = [
       { path: 'config', component: ConfigComponent }
 
     ]
-  }
+  },
+  // otherwise redirect to home
+  { path: '**', redirectTo: '' }
 ];
 
 @NgModule({
@@ -49,9 +60,18 @@ const appRoutes: Routes = [
     TypographyComponent,
     IconsComponent,
     ConfigComponent,
-    NotificationsComponent
+    NotificationsComponent,
+    AlertComponent,
+    HomeComponent,
+    LoginComponent,
+    RegisterComponent,
+    AdminHomeComponent
   ],
   imports: [
+    LocalStorageModule.withConfig({
+      prefix: 'my-app',
+      storageType: 'localStorage'
+    }),
     BrowserModule,
     FormsModule,
     HttpModule,
@@ -61,7 +81,12 @@ const appRoutes: Routes = [
     LbdModule,
     AccordionModule.forRoot()
 ],
-  providers: [TransactionService],
+  providers: [
+    TransactionService,
+    AuthGuard,
+    AlertService,
+    AuthenticationService,
+    UserService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

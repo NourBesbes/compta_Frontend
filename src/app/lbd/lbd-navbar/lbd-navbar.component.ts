@@ -2,7 +2,7 @@ import {Component, Input, OnInit, ChangeDetectionStrategy, ChangeDetectorRef} fr
 import { NavbarTitleService } from '../services/navbar-title.service';
 import { NavItem, NavItemType } from '../lbd.module';
 import { MobileSidebarToggleService } from '../services/mobile-sidebar-toggle.service';
-
+import * as $ from 'jquery';
 @Component({
   selector: 'lbd-navbar',
   templateUrl: './lbd-navbar.component.html',
