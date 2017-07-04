@@ -1,6 +1,7 @@
 import {Component, OnInit, trigger, state, style, transition, animate} from '@angular/core';
 import { NavbarTitleService } from '../lbd/services/navbar-title.service';
-
+import { UserService } from '../_services/index';
+import {User} from "../_models/user";
 @Component({
   selector: 'app-user',
   templateUrl: './user.component.html',
@@ -49,28 +50,34 @@ import { NavbarTitleService } from '../lbd/services/navbar-title.service';
 export class UserComponent implements OnInit {
   public formData: any;
   public userAbout: string;
-
-  constructor(private navbarTitleService: NavbarTitleService) { }
+  public currentUser:any;
+  public user:any;
+  constructor(private navbarTitleService: NavbarTitleService,private userService:UserService) { }
 
   public ngOnInit() {
     this.navbarTitleService.updateTitle('User Profile');
-
+  this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    console.log(this.currentUser);
+    this.getCurrentUser();
     this.userAbout = '"Lamborghini Mercy <br>Your chick she so thirsty <br>I\'m in that two seat Lambo"';
-
     this.formData = {
-      username: 'michael23',
-      email: '',
-      firstName: 'Mike',
-      lastName: 'Andrew',
-      address: 'Bld Mihail Kogalniceanu, nr. 8 Bl 1, Sc 1, Ap 09',
-      city: 'Mike',
-      country: 'Andrew',
-      postCode: null,
-      aboutMe: 'Lamborghini Mercy, Your chick she so thirsty, I\'m in that two seat Lambo.'
+      username: this.currentUser.username,
+      email: this.currentUser.email,
+      firstName: this.currentUser.firstName,
+      lastName: this.currentUser.lastName
+
+
     };
+
   }
 
   public onSubmit() {
     console.log('Submitting values', this.formData);
+  }
+
+  public getCurrentUser()
+  {
+    this.userService.getByUsername(this.currentUser).subscribe(data => { this.user = data; });
+    console.log(this.user);
   }
 }

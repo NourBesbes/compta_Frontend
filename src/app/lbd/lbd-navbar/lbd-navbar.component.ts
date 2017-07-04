@@ -3,6 +3,8 @@ import { NavbarTitleService } from '../services/navbar-title.service';
 import { NavItem, NavItemType } from '../lbd.module';
 import { MobileSidebarToggleService } from '../services/mobile-sidebar-toggle.service';
 import * as $ from 'jquery';
+import { Router, ActivatedRoute } from '@angular/router';
+import { UserService,AuthenticationService } from '../../_services/index';
 @Component({
   selector: 'lbd-navbar',
   templateUrl: './lbd-navbar.component.html',
@@ -11,14 +13,18 @@ import * as $ from 'jquery';
 export class LbdNavbarComponent implements OnInit {
   @Input()
   public navItems: NavItem[];
-
   public title: string;
-
   public mobileSidebarOpen = false;
   public navCloseIcon = false;
 
+
+
   constructor(private navbarTitleService: NavbarTitleService, private mobileSidebarToggleService: MobileSidebarToggleService,
-              private cd: ChangeDetectorRef) { }
+              private cd: ChangeDetectorRef,private authService: AuthenticationService,private router:Router) { }
+
+  logOut()
+  {this.authService.logout();
+    this.router.navigate(['/login']);}
 
   public ngOnInit(): void {
     this.navbarTitleService.titleChanged$.subscribe(title => {
