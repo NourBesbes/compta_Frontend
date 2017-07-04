@@ -3,8 +3,8 @@ import { NavbarTitleService } from '../lbd/services/navbar-title.service';
 
 @Component({
   selector: 'app-typography',
-  templateUrl: './typography.component.html',
-  styleUrls: ['./typography.component.css'],
+  templateUrl: 'banque.component.html',
+  styleUrls: ['banque.component.css'],
   animations: [
     trigger('cardtypography', [
       transition('void => *', [

@@ -10,7 +10,7 @@ import { LbdModule } from './lbd/lbd.module';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { UserComponent } from './user/user.component';
 import { TransactionComponent } from './transaction/transaction.component';
-import { TypographyComponent } from './banque/typography.component';
+import { TypographyComponent } from './banque/banque.component';
 import { IconsComponent } from './icons/icons.component';
 import { ConfigComponent } from './config/config.component';
 import { NotificationsComponent } from './notifications/notifications.component';
