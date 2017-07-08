@@ -16,7 +16,8 @@ import { ConfigComponent } from './config/config.component';
 import { NotificationsComponent } from './notifications/notifications.component';
 import {TransactionService} from './transaction/transaction .service';
 import { AlertComponent } from './_directives/index';
-import { AuthGuard } from './_guards/index';
+import { AuthGuard} from './_guards/index';
+import { AuthCompany } from './_guards/auth.company';
 import { AlertService, AuthenticationService, UserService } from './_services/index';
 import { HomeComponent } from './home/index';
 import { LoginComponent } from './login/index';
@@ -24,6 +25,8 @@ import { RegisterComponent } from './register/index';
 import { AdminHomeComponent } from './admin-home/admin-home.component';
 import { LocalStorageModule } from 'angular-2-local-storage';
 import {PopupModule} from 'ng2-opd-popup';
+import { RegisterCompanyComponent } from './register-company/register-company.component';
+import {CompanyService} from "./_services/company.service";
 
 
 
@@ -31,8 +34,8 @@ const appRoutes: Routes = [
   //{ path: '', component: HomeComponent, canActivate: [AuthGuard] },
   { path: 'admin', component: AdminHomeComponent, canActivate: [AuthGuard] },
   { path: 'login', component: LoginComponent },
-  { path: 'register', component: RegisterComponent },
-  
+  { path: 'register', component: RegisterComponent,canActivate: [AuthCompany] },
+  { path: 'registerC', component: RegisterCompanyComponent },
   {path: '', component: FooterLayoutComponent, canActivate: [AuthGuard], children:
     [
       { path: 'dashboard', component: DashboardComponent },
@@ -65,7 +68,8 @@ const appRoutes: Routes = [
     HomeComponent,
     LoginComponent,
     RegisterComponent,
-    AdminHomeComponent
+    AdminHomeComponent,
+    RegisterCompanyComponent
   ],
   imports: [
     LocalStorageModule.withConfig({
@@ -84,9 +88,11 @@ const appRoutes: Routes = [
   providers: [
     TransactionService,
     AuthGuard,
+    AuthCompany,
     AlertService,
     AuthenticationService,
-    UserService],
+    UserService,
+  CompanyService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

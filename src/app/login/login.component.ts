@@ -35,6 +35,7 @@ if (localStorage.getItem("currentUser")) this.router.navigate(['/dashboard']);
                 data => {
                   if (data.success==true) {
                     var store = JSON.parse(localStorage.getItem("currentUser"));
+                   
                     if (store.role == "admin") this.router.navigate(['admin']);
                     else this.router.navigate([this.returnUrl]);
                   }
