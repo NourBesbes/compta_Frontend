@@ -7,10 +7,12 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import 'rxjs/Rx'
 import 'rxjs/add/operator/toPromise';
+import {Observable} from 'rxjs/Observable';
 @Injectable()
 export class UserService {
     constructor(private http: Http, private localStorage: LocalStorageService) { }
-
+endpoint_url='http://localhost:3000/user/findUser';
+update_url='http://localhost:3000/user/update';
     getAll()
     {
         //noinspection TypeScriptValidateTypes
@@ -18,11 +20,13 @@ export class UserService {
           .map((response: Response) => response.json());
     }
 
-    getByUsername(currentUser:any)
-    { console.log("Hello From UserService==>getByUsername",currentUser);
-        //noinspection TypeScriptValidateTypes
-      return this.http.post('http://localhost:3000/user/findUser' , currentUser, this.jwt()).
-        map((response: Response) => response.json());
+getByUsername(username:string)
+    {
+      const url=`${this.endpoint_url}/${username}`;
+      console.log(url);
+      return this.http.
+      get(url)
+        .map((response: Response) =>response.json());
     }
 
     create(user: User)
@@ -34,9 +38,12 @@ export class UserService {
         map((response: Response) =>response.json());
     }
 
-    update(user: User) {
+    update(user: any) {
       //noinspection TypeScriptValidateTypes
-        return this.http.put('/api/users/' + user.id, user, this.jwt()).
+         const url=`${this.update_url}/${user.username}`;
+      console.log(url);
+      return this.http.
+      put(url,user).
         map((response: Response) => response.json());
 
     }

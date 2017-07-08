@@ -52,32 +52,36 @@ export class UserComponent implements OnInit {
   public userAbout: string;
   public currentUser:any;
   public user:any;
+  public  user1 ={"username":"","password":"","email":"", "first_name":"","last_name":"","image":""};
   constructor(private navbarTitleService: NavbarTitleService,private userService:UserService) { }
 
   public ngOnInit() {
     this.navbarTitleService.updateTitle('User Profile');
   this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
-    console.log(this.currentUser);
+
     this.getCurrentUser();
     this.userAbout = '"Lamborghini Mercy <br>Your chick she so thirsty <br>I\'m in that two seat Lambo"';
-    this.formData = {
-      username: this.currentUser.username,
-      email: this.currentUser.email,
-      firstName: this.currentUser.firstName,
-      lastName: this.currentUser.lastName
-
-
-    };
 
   }
-
   public onSubmit() {
-    console.log('Submitting values', this.formData);
+    console.log('Submitting values', this.user1);
+    
+     this.userService.update(this.user1).subscribe((data) => { this.user = data; 
+     this.getCurrentUser();
+     console.log(this.user);});
   }
-
   public getCurrentUser()
   {
-    this.userService.getByUsername(this.currentUser).subscribe(data => { this.user = data; });
-    console.log(this.user);
+    this.userService.getByUsername(this.currentUser.username).subscribe((data) => { this.user = data; 
+     
+        this.user1.username=this.user.username;
+    this.user1.password=this.user.password;
+      this.user1.email=this.user.email;
+      this.user1.first_name=this.user.first_name;
+      this.user1.last_name=this.user.last_name;
+      this.user1.image=this.user.imagePath;
+         
+ });
+    
   }
 }
