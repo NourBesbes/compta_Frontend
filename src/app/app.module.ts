@@ -31,6 +31,7 @@ import { BootstrapModalModule } from 'angular2-modal/plugins/bootstrap';
 import {UploadModal} from "./transaction/upload-modal";
 import {NgxPaginationModule} from 'ngx-pagination';
 import { NgDateRangePickerModule } from 'ng-daterangepicker';
+import {BanqueService} from "./banque/banque.service";
 
 const appRoutes: Routes = [
   //{ path: '', component: HomeComponent, canActivate: [AuthGuard] },
@@ -98,7 +99,8 @@ const appRoutes: Routes = [
     AuthGuard,
     AlertService,
     AuthenticationService,
-    UserService],
+    UserService,
+    BanqueService],
   bootstrap: [AppComponent],
   entryComponents: [ CustomModal,AddModal,UploadModal ]
 
