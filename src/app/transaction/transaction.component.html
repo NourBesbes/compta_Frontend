@@ -1,6 +1,6 @@
-<div class="container-fluid">
+<span defaultOverlayTarget>
   <div class="row">
-    <button type="button"(click)="ClickButton()" class="btn btn-success">Importer</button>
+    <button type="button"(click)="onClickUpload()" class="btn btn-info">Importer</button>
 
   <div class="col-md-12" [@cardtable1]>
     <div class="content table-responsive table-full-width">
@@ -9,23 +9,21 @@
     <tr>
       <th>Date</th>
       <th>Libelle</th>
-      <th>Debit</th>
-      <th>Credit</th>
+      <th>Montant</th>
       <th>Budget</th>
     </tr>
     </thead>
     <tbody>
-    <tr *ngFor="let transaction of transactions"
+    <tr *ngFor="let transaction of transactions| paginate: { itemsPerPage: 8, currentPage: p }"
     >
       <td>{{transaction.Date}}</td>
       <td>{{transaction.Libelle}}</td>
-      <td>{{transaction.Debit}}</td>
-      <td>{{transaction.Credit}}</td>
+      <td>{{transaction.Montant}}</td>
       <td class="td-actions text-right">
         <button type="button" (click)="ClickButtonEdit()" rel="tooltip" title="Edit Task"  class="btn btn-info btn-simple btn-xs">
           <i class="fa fa-edit"></i>
         </button>
-        <button type="button" rel="tooltip" title="Remove" class="btn btn-danger btn-simple btn-xs">
+        <button type="button" rel="tooltip" title="Remove" (click)="deleteTransaction(transaction)"class="btn btn-danger btn-simple btn-xs">
           <i class="fa fa-times"></i>
         </button>
       </td>
@@ -33,7 +31,9 @@
     </tr>
     </tbody>
   </table>
-  </div>
+      <p align="right"> <pagination-controls (pageChange)="p = $event"></pagination-controls></p>
+
+    </div>
   </div>
 
 
@@ -70,4 +70,4 @@
     </div>
     </div>
   </popup>
-</div>
+</span>

@@ -15,9 +15,9 @@ export class FooterLayoutComponent implements OnInit {
     this.footerItems = [
       { title: 'Home', routerLink: '' },
       { title: 'Company', routerLink: '' },
-      { title: 'Portfolio', routerLink: '' },
-      { title: 'Blog', routerLink: '' }
+      { title: 'Banque', routerLink: '' },
+      { title: 'User Profile', routerLink: '' }
     ];
-    this.copyright = '&copy; 2016 <a href="http://www.creative-tim.com">Creative Tim</a>, made with love for a better web';
+    this.copyright = '&copy; 2017 <a href="http://www.devstriker.com">Devstriker</a>, made with love ';
   }
 }

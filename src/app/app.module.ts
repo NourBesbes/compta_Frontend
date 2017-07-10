@@ -10,10 +10,10 @@ import { LbdModule } from './lbd/lbd.module';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { UserComponent } from './user/user.component';
 import { TransactionComponent } from './transaction/transaction.component';
-import { TypographyComponent } from './banque/banque.component';
+import { BanqueComponent } from './banque/banque.component';
 import { IconsComponent } from './icons/icons.component';
 import { ConfigComponent } from './config/config.component';
-import { NotificationsComponent } from './notifications/notifications.component';
+import {DocumentComponent} from './documents/document.component';
 import {TransactionService} from './transaction/transaction .service';
 import { AlertComponent } from './_directives/index';
 import { AuthGuard } from './_guards/index';
@@ -24,23 +24,29 @@ import { RegisterComponent } from './register/index';
 import { AdminHomeComponent } from './admin-home/admin-home.component';
 import { LocalStorageModule } from 'angular-2-local-storage';
 import {PopupModule} from 'ng2-opd-popup';
-
-
-
+import {BanqueService} from "./banque/banque.service";
+import { ModalModule } from 'angular2-modal';
+import { BootstrapModalModule,Modal } from 'angular2-modal/plugins/bootstrap';
+import {CustomModal} from './banque/updateform-modal';
+import {AddModal} from './banque/addform-modal';
+import {NgxPaginationModule} from 'ngx-pagination';
+import {UploadModal} from "./transaction/upload-modal"; // <-- import the module
+import { NgDateRangePickerModule } from 'ng-daterangepicker';
+import { Daterangepicker } from 'ng2-daterangepicker';
 const appRoutes: Routes = [
   //{ path: '', component: HomeComponent, canActivate: [AuthGuard] },
   { path: 'admin', component: AdminHomeComponent, canActivate: [AuthGuard] },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
-  
+
   {path: '', component: FooterLayoutComponent, canActivate: [AuthGuard], children:
     [
       { path: 'dashboard', component: DashboardComponent },
       { path: 'user', component: UserComponent },
       { path: 'transaction', component: TransactionComponent },
-      { path: 'banque', component: TypographyComponent },
+      { path: 'banque', component: BanqueComponent },
       { path: 'icons', component: IconsComponent },
-      { path: 'notifications', component: NotificationsComponent },
+      { path: 'doc', component: DocumentComponent },
       { path: '**', redirectTo: 'deshboard' },
       { path: 'config', component: ConfigComponent }
 
@@ -57,15 +63,18 @@ const appRoutes: Routes = [
     DashboardComponent,
     UserComponent,
     TransactionComponent,
-    TypographyComponent,
+    BanqueComponent,
     IconsComponent,
     ConfigComponent,
-    NotificationsComponent,
     AlertComponent,
     HomeComponent,
     LoginComponent,
     RegisterComponent,
-    AdminHomeComponent
+    AdminHomeComponent,
+    CustomModal,
+    AddModal,
+    UploadModal,
+    DocumentComponent
   ],
   imports: [
     LocalStorageModule.withConfig({
@@ -79,14 +88,24 @@ const appRoutes: Routes = [
     PopupModule.forRoot(),
     //AgmCoreModule.forRoot({ apiKey: 'AIzaSyAEPDOJl5CPLz6NZcMqJBqZWfVXec3UsJg' }),
     LbdModule,
-    AccordionModule.forRoot()
+    AccordionModule.forRoot(),
+    ModalModule.forRoot(),
+    BootstrapModalModule,
+    NgxPaginationModule,
+    NgDateRangePickerModule,
+    Daterangepicker
 ],
   providers: [
+    BanqueService,
     TransactionService,
     AuthGuard,
     AlertService,
     AuthenticationService,
-    UserService],
-  bootstrap: [AppComponent]
+    UserService,
+    Modal
+    ],
+  bootstrap: [AppComponent],
+  entryComponents: [ CustomModal ,AddModal,UploadModal]
+
 })
 export class AppModule { }

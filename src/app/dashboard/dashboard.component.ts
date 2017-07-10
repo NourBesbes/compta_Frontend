@@ -111,8 +111,8 @@ export class DashboardComponent implements OnInit {
     this.navbarTitleService.updateTitle('Dashboard');
 
     this.notificationService.notify(new NotificationOptions({
-      message: 'Welcome to <b>Light Bootstrap Dashboard</b> - a beautiful freebie for every web developer.',
-      icon: 'pe-7s-gift'
+      message: 'Welcome to <b>Devstriker</b> - BEYOND ALL YOUR EXPECTATIONS',
+      icon: 'pe-7s-home'
     }));
 
     this.emailChartType = ChartType.Pie;

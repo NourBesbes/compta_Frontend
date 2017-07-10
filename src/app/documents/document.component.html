@@ -1,0 +1,19 @@
+<div class="container-fluid">
+  <div class="card" [@cardnotifications]>
+    <div class="header">
+      <h4 class="title">Document Comptable</h4>
+    </div>
+    <div class="content">
+      <div class="row">
+        <div class="col-md-6">
+          <h5>Notifications Style</h5>
+          <div class="form-group">
+          <ng-daterangepicker [(ngModel)]="value" [options]="options"></ng-daterangepicker>
+          <button type="button"(click)="getstartdate(value)" class="btn btn-info">Go</button>
+          </div>
+        </div>
+
+  </div>
+</div>
+    </div>
+  </div>

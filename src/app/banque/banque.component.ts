@@ -1,5 +1,14 @@
-import {Component, OnInit, trigger, transition, style, animate} from '@angular/core';
+import {Component, OnInit, trigger, transition, style, animate,ViewChild,Injectable} from '@angular/core';
+import {NotificationService, NotificationType, NotificationOptions} from '../lbd/services/notification.service';
 import { NavbarTitleService } from '../lbd/services/navbar-title.service';
+import {BanqueService} from "./banque.service";
+import { Banque } from '../_models/banque';
+import { Http } from '@angular/http';
+import { AlertService } from '../_services/index';
+import { Modal ,BSModalContext} from 'angular2-modal/plugins/bootstrap';
+import {CustomModal} from './updateform-modal';
+import {AddModal} from './addform-modal';
+import {  overlayConfigFactory } from 'angular2-modal';
 
 @Component({
   selector: 'app-typography',
@@ -26,11 +35,63 @@ import { NavbarTitleService } from '../lbd/services/navbar-title.service';
     ])
   ]
 })
-export class TypographyComponent implements OnInit {
+export class BanqueComponent implements OnInit {
+  loading = false;
+  banques: Banque[];
+  model:any = {name:'',swift:'',IBAN:'',Banque:''};
+  p: number = 1;
 
-  constructor(private navbarTitleService: NavbarTitleService) { }
+
+
+
+  constructor(private navbarTitleService: NavbarTitleService,private http: Http,private banqueService: BanqueService,
+
+  private alertService: AlertService,public modal: Modal,private notificationService: NotificationService) { }
 
   public ngOnInit() {
     this.navbarTitleService.updateTitle('Banque');
+    // Retrieve banks from the API
+    this.banqueService.getAll().subscribe(banques => {
+      this.banques = banques;
+    });
+
   }
+
+
+ public deleteBanque(banque:Banque){
+   if (confirm('Are you sure you want to delete ' + banque.name)) {
+
+     var banques = this.banques;
+     const type = Math.floor((Math.random() * 4) + 1);
+
+     this.banqueService.delete(banque._id).subscribe(data => {
+       var name=banque.name
+       this.notificationService.notify(new NotificationOptions({
+         message: 'Le compte bancaire a été supprimé',
+         icon: 'pe-7s-trash',
+         type: <NotificationType>(type),
+         from: 'top',
+         align: 'right'
+       }));
+       this.banqueService.getAll().subscribe(banques => {
+         this.banques = banques;
+       });
+
+     });
+
+   }
+
+  }
+
+  onClickUpdate(banque:Banque) {
+    return this.modal.open(CustomModal,  overlayConfigFactory(banque, BSModalContext)).then(res=>
+
+      console.log(res)
+  )
+  }
+  onClickAdd(banque:Banque) {
+    return this.modal.open(AddModal,  overlayConfigFactory(banque, BSModalContext))
+  }
+
+
 }

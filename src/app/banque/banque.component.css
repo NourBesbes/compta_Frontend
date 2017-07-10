@@ -11,4 +11,7 @@
     left: 0px;
     position: absolute;
   }
+  .pull-right {
+    float: right !important;
+  }
 }

@@ -1,83 +1,51 @@
-<div class="container-fluid">
-  <div class="row">
-    <div class="col-md-12">
-      <div class="card" [@cardtypography]>
-        <div class="header">
-          <h4 class="title">Devstriker</h4>
-          <p class="category">Created using Roboto Font Family</p>
-        </div>
-        <div class="content">
-
-          <div class="typo-line">
-            <h1><p class="category">Header 1</p>Light Bootstrap Table Heading </h1>
-          </div>
-
-          <div class="typo-line">
-            <h2><p class="category">Header 2</p>Light Bootstrap Table Heading</h2>
-          </div>
-          <div class="typo-line">
-            <h3><p class="category">Header 3</p>Light Bootstrap Table Heading</h3>
-          </div>
-          <div class="typo-line">
-            <h4><p class="category">Header 4</p>Light Bootstrap Table Heading</h4>
-          </div>
-          <div class="typo-line">
-            <h5><p class="category">Header 5</p>Light Bootstrap Table Heading</h5>
-          </div>
-          <div class="typo-line">
-            <h6><p class="category">Header 6</p>Light Bootstrap Table Heading</h6>
-          </div>
-          <div class="typo-line">
-            <p><span class="category">Paragraph</span>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam.</p>
-          </div>
-          <div class="typo-line">
-            <p class="category">Quote</p>
-            <blockquote>
-              <p>
-                Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam.
-              </p>
-              <small>
-                Steve Jobs, CEO Apple
-              </small>
-            </blockquote>
-          </div>
-
-          <div class="typo-line">
-            <p class="category">Muted Text</p>
-            <p class="text-muted">
-              Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet.
-            </p>
-          </div>
-          <div class="typo-line">
-            <!--
-             there are also "text-info", "text-success", "text-warning", "text-danger" clases for the text
-             -->
-            <p class="category">Coloured Text</p>
-            <p class="text-primary">
-              Text Primary - Light Bootstrap Table Heading and complex bootstrap dashboard you've ever seen on the internet.
-            </p>
-            <p class="text-info">
-              Text Info - Light Bootstrap Table Heading and complex bootstrap dashboard you've ever seen on the internet.
-            </p>
-            <p class="text-success">
-              Text Success - Light Bootstrap Table Heading and complex bootstrap dashboard you've ever seen on the internet.
-            </p>
-            <p class="text-warning">
-              Text Warning - Light Bootstrap Table Heading and complex bootstrap dashboard you've ever seen on the internet.
-            </p>
-            <p class="text-danger">
-              Text Danger - Light Bootstrap Table Heading and complex bootstrap dashboard you've ever seen on the internet.
-            </p>
-          </div>
-
-          <div class="typo-line">
-            <h2><p class="category">Small Tag</p>Header with small subtitle <br><small>".small" is a tag for the headers</small> </h2>
-          </div>
-
-
-        </div>
-      </div>
+<span defaultOverlayTarget>
+<div class="row">
+  <button type="button"  (click)="onClickAdd()" class="btn btn-info">Ajouter un compte bancaire</button>
+  <div class="pull-right">
+  <div class="col-lg-10">
+    <div class="input-group">
+      <input type="text" class="form-control" placeholder="Search for...">
+      <span class="input-group-btn">
+        <button class="btn btn-secondary" type="button">Go!</button>
+      </span>
     </div>
-
   </div>
 </div>
+</div>
+<br>
+  <div class="content table-responsive table-full-width">
+    <table class="table table-hover table-striped">
+      <thead>
+      <tr>
+        <th>Compte Bancaire</th>
+        <th>Swift</th>
+        <th>IBAN</th>
+        <th>Banque</th>
+
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let banque of banques| paginate: { itemsPerPage: 5, currentPage: p }">
+        <td>{{banque.name}}</td>
+        <td>{{banque.swift}}</td>
+        <td>{{banque.IBAN}}</td>
+        <td>{{banque.Banque}}</td>
+
+        <td class="td-actions text-right">
+          <button type="button" (click)="onClickUpdate(banque)" rel="tooltip" title="Edit Task"  class="btn btn-info btn-simple btn-xs">
+            <i class="fa fa-edit"></i>
+          </button>
+          <button type="button" rel="tooltip" title="Remove"  (click)="deleteBanque(banque)" class="btn btn-danger btn-simple btn-xs">
+            <i class="fa fa-times"></i>
+          </button>
+        </td>
+
+      </tr>
+      </tbody>
+    </table>
+      <p align="right"> <pagination-controls (pageChange)="p = $event"></pagination-controls></p>
+
+  </div>
+
+
+</span>

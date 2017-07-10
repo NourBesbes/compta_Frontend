@@ -3,9 +3,11 @@
  */
 
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
+import {Http, Response, Headers, RequestOptions, RequestMethod} from '@angular/http';
 import 'rxjs/add/operator/map';
-
+import {Observable} from 'rxjs/Rx';
+import 'rxjs/Rx';
+import 'rxjs/add/operator/toPromise';
 @Injectable()
 export class TransactionService {
 
@@ -23,12 +25,24 @@ export class TransactionService {
       var xhr = new XMLHttpRequest();
 
       for(var i = 0; i < files.length; i++) {
+        console.log("hellllo");
         formData.append("uploads[]", files[i], files[i].name);
       }
 
       xhr.open("POST", url, true);
       xhr.send(formData);
+    })
+  }
+
+  public delete(id:string){
+    console.log("Hello From TransactionService; Méthode Delete")
+    let options = new RequestOptions({
+      headers: new Headers({ 'Content-Type': 'application/json;charset=UTF-8' }),
+      method: RequestMethod.Delete
     });
+    return this.http.delete(`http://localhost:3000/transaction/delete/${id}`,options)
+      .map((res) => res.json())
+      .catch((error:any) => Observable.throw(error.json().error || 'Server error'));
   }
 
 

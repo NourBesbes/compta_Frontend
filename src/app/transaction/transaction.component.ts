@@ -3,6 +3,15 @@ import { NavbarTitleService } from '../lbd/services/navbar-title.service';
 import { TransactionService } from '../transaction/transaction .service';
 import { Http } from '@angular/http';
 import {Popup} from 'ng2-opd-popup';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/toPromise';
+import { Transaction } from '../_models/transaction';
+import {NotificationService, NotificationType, NotificationOptions} from '../lbd/services/notification.service';
+import {forEach} from "@angular/router/src/utils/collection";
+import {UploadModal} from "./upload-modal";
+import {  overlayConfigFactory } from 'angular2-modal';
+import { Modal ,BSModalContext} from 'angular2-modal/plugins/bootstrap';
+
 @Component({
   selector: 'app-table',
   templateUrl: 'transaction.component.html',
@@ -31,18 +40,38 @@ import {Popup} from 'ng2-opd-popup';
 export class TransactionComponent implements OnInit {
   transactions: any = [];
   filesToUpload: Array<File>;
+  p: number = 1;
 
 
-  constructor(private navbarTitleService: NavbarTitleService,private popup:Popup,private http: Http,private transactionService: TransactionService) {
+
+  constructor(private navbarTitleService: NavbarTitleService,public modal: Modal,private popup:Popup,private http: Http,private transactionService: TransactionService
+    ,private notificationService: NotificationService) {
     this.filesToUpload = [];
   }
 
   public ngOnInit() {
     this.navbarTitleService.updateTitle('Transactions');
-
+   var self = this ;
     // Retrieve transactions from the API
     this.transactionService.getAllTransactions().subscribe(transactions => {
-      this.transactions = transactions;
+
+      transactions.forEach(function (j) {
+        var x ;
+        var Montant ;
+        if (j.Debit) {Montant="+"+j.Debit}
+        if (j.Credit) {Montant="+"+j.Credit}
+        x = {
+          Date: j.Date.split("T")[0],
+          Libelle: j.Libelle,
+          Montant: Montant,
+          _id:j._id,
+          CompteBancaire:j.CompteBancaire,
+          budget:j.budget
+        };
+        self.transactions.push(x)
+      })
+
+     // this.transactions = transactions;
     });
 
 
@@ -67,11 +96,34 @@ export class TransactionComponent implements OnInit {
   }
 
   upload() {
-    this.transactionService.makeFileRequest("http://localhost:3000/transaction/upload", [], this.filesToUpload).then((result) => {
-      console.log(result);
-    }, (error) => {
-      console.error(error);
-    });
+    this.transactionService.makeFileRequest("http://localhost:3000/transaction/upload", [], this.filesToUpload)
+      .then((result) => console.log(result));
+
+
+  }
+  public deleteTransaction(transaction:Transaction){
+    if (confirm('Are you sure you want to delete ' + transaction.Libelle)) {
+
+      var transactions = this.transactions;
+      const type = Math.floor((Math.random() * 4) + 1);
+
+      this.transactionService.delete(transaction._id).subscribe(data => {
+
+        this.notificationService.notify(new NotificationOptions({
+          message: 'La transaction a été supprimée',
+          icon: 'pe-7s-trash',
+          type: <NotificationType>(type),
+          from: 'top',
+          align: 'right'
+        }));
+        this.transactionService.getAllTransactions().subscribe(transactions => {
+          this.transactions = transactions;
+        });
+
+      });
+
+    }
+
   }
 
   fileChangeEvent(fileInput: any){
@@ -95,7 +147,9 @@ export class TransactionComponent implements OnInit {
     };
     this.popup2.show(this.popup2.options);
   }
-
+  onClickUpload() {
+    return this.modal.open(UploadModal,  overlayConfigFactory(BSModalContext))
+  }
 }
 
 

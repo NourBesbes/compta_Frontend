@@ -1,11 +1,13 @@
-import {Component, OnInit, trigger, state, style, transition, animate} from '@angular/core';
+import {Component, OnInit, trigger, state, style, transition, animate, Input} from '@angular/core';
 import {NotificationService, NotificationType, NotificationOptions} from '../lbd/services/notification.service';
 import { NavbarTitleService } from '../lbd/services/navbar-title.service';
+import { NgDateRangePickerOptions } from 'ng-daterangepicker';
+import { Daterangepicker } from 'ng2-daterangepicker';
 
 @Component({
   selector: 'app-notifications',
-  templateUrl: './notifications.component.html',
-  styleUrls: ['./notifications.component.css'],
+  templateUrl: 'document.component.html',
+  styleUrls: ['document.component.css'],
   animations: [
     trigger('cardnotifications', [
       state('*', style({
@@ -28,23 +30,31 @@ import { NavbarTitleService } from '../lbd/services/navbar-title.service';
     ])
   ]
 })
-export class NotificationsComponent implements OnInit {
+export class DocumentComponent implements OnInit {
+  options: NgDateRangePickerOptions;
+  public x:string ;
 
   constructor(private navbarTitleService: NavbarTitleService, private notificationService: NotificationService) { }
 
   public ngOnInit() {
-    this.navbarTitleService.updateTitle('Notifications');
+    this.navbarTitleService.updateTitle('Documents Comptable');
+    this.options = {
+      theme: 'default',
+      range: 'tm',
+      dayNames: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+      presetNames: ['This Month', 'Last Month', 'This Week', 'Last Week', 'This Year', 'Last Year', 'Start', 'End'],
+      dateFormat: 'yMd',
+      outputFormat: 'DD/MM/YYYY',
+      startOfWeek: 1
+
+    };
+  }
+  public getstartdate(date:string)
+  {
+    this.x=date.split("-")[0];
+    console.log(this.x);
+    return(date)
   }
 
-  public showNotification(from: string, align: string) {
-    const type = Math.floor((Math.random() * 4) + 1);
 
-    this.notificationService.notify(new NotificationOptions({
-      message: 'Welcome to <b>Light Bootstrap Dashboard</b> - a beautiful freebie for every web developer.',
-      icon: 'pe-7s-gift',
-      type: <NotificationType>(type),
-      from: from,
-      align: align
-    }));
-  }
 }
