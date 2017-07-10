@@ -11,7 +11,7 @@
               <div class="col-md-6">
                 <div class="form-group">
                   <label>Company (disabled)</label>
-                  <input type="text" class="form-control" disabled placeholder="Company" value="Creative Code Inc.">
+                  <input type="text" class="form-control" disabled id="company" name="company"placeholder="Company" [(ngModel)]="user1.name">
                 </div>
               </div>
 
@@ -69,7 +69,7 @@
         [avatarImage]="user1.image"
         [name]="user1.first_name"
         [username]="user1.username"
-  
+
         >
       </lbd-user-profile>
     </div>

@@ -52,7 +52,7 @@ export class UserComponent implements OnInit {
   public userAbout: string;
   public currentUser:any;
   public user:any;
-  public  user1 ={"username":"","password":"","email":"", "first_name":"","last_name":"","image":""};
+  public  user1 ={"username":"","password":"","email":"", "first_name":"","last_name":"","image":"","company":"","name":""};
   constructor(private navbarTitleService: NavbarTitleService,private userService:UserService) { }
 
   public ngOnInit() {
@@ -65,23 +65,26 @@ export class UserComponent implements OnInit {
   }
   public onSubmit() {
     console.log('Submitting values', this.user1);
-    
-     this.userService.update(this.user1).subscribe((data) => { this.user = data; 
+
+     this.userService.update(this.user1).subscribe((data) => { this.user = data;
+       console.log('user', this.user);
      this.getCurrentUser();
-     console.log(this.user);});
+     });
   }
   public getCurrentUser()
   {
-    this.userService.getByUsername(this.currentUser.username).subscribe((data) => { this.user = data; 
-     
+    this.userService.getByUsername(this.currentUser.username).subscribe((data) => { this.user = data;
+
         this.user1.username=this.user.username;
-    this.user1.password=this.user.password;
-      this.user1.email=this.user.email;
-      this.user1.first_name=this.user.first_name;
-      this.user1.last_name=this.user.last_name;
-      this.user1.image=this.user.imagePath;
-         
+        this.user1.password=this.user.password;
+        this.user1.email=this.user.email;
+        this.user1.first_name=this.user.first_name;
+        this.user1.last_name=this.user.last_name;
+        this.user1.image=this.user.imagePath;
+        this.user1.company=this.user.company._id;
+        this.user1.name=this.user.company.name;
+
  });
-    
+
   }
 }

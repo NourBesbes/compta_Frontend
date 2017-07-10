@@ -102,7 +102,7 @@ this.readFile(files[index], reader, (result) =>{
 var img = document.createElement("img");
 img.src = result;
 // Send this img to the resize function (and wait for callback)
-this.resize(img, 250, 250, (resized_jpeg, before, after)=>{
+this.resize(img, 100, 200, (resized_jpeg, before, after)=>{
 // For debugging (size in bytes before and after)
 this.debug_size_before.push(before);
 this.debug_size_after.push(after);
