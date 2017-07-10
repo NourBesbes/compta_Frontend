@@ -13,7 +13,7 @@ import { TransactionComponent } from './transaction/transaction.component';
 import { BanqueComponent } from './banque/banque.component';
 import { IconsComponent } from './icons/icons.component';
 import { ConfigComponent } from './config/config.component';
-import {DocumentComponent} from './documents/document.component';
+import { DocumentComponent } from './documents/document.component'
 import {TransactionService} from './transaction/transaction .service';
 import { AlertComponent } from './_directives/index';
 import { AuthGuard } from './_guards/index';
@@ -24,15 +24,14 @@ import { RegisterComponent } from './register/index';
 import { AdminHomeComponent } from './admin-home/admin-home.component';
 import { LocalStorageModule } from 'angular-2-local-storage';
 import {PopupModule} from 'ng2-opd-popup';
-import {BanqueService} from "./banque/banque.service";
+import {CustomModal} from './banque/updateform-modal'
+import {AddModal} from './banque/addform-modal'
 import { ModalModule } from 'angular2-modal';
-import { BootstrapModalModule,Modal } from 'angular2-modal/plugins/bootstrap';
-import {CustomModal} from './banque/updateform-modal';
-import {AddModal} from './banque/addform-modal';
+import { BootstrapModalModule } from 'angular2-modal/plugins/bootstrap';
+import {UploadModal} from "./transaction/upload-modal";
 import {NgxPaginationModule} from 'ngx-pagination';
-import {UploadModal} from "./transaction/upload-modal"; // <-- import the module
 import { NgDateRangePickerModule } from 'ng-daterangepicker';
-import { Daterangepicker } from 'ng2-daterangepicker';
+
 const appRoutes: Routes = [
   //{ path: '', component: HomeComponent, canActivate: [AuthGuard] },
   { path: 'admin', component: AdminHomeComponent, canActivate: [AuthGuard] },
@@ -71,10 +70,10 @@ const appRoutes: Routes = [
     LoginComponent,
     RegisterComponent,
     AdminHomeComponent,
+    DocumentComponent,
     CustomModal,
     AddModal,
-    UploadModal,
-    DocumentComponent
+    UploadModal
   ],
   imports: [
     LocalStorageModule.withConfig({
@@ -92,20 +91,17 @@ const appRoutes: Routes = [
     ModalModule.forRoot(),
     BootstrapModalModule,
     NgxPaginationModule,
-    NgDateRangePickerModule,
-    Daterangepicker
+    NgDateRangePickerModule
 ],
   providers: [
-    BanqueService,
     TransactionService,
     AuthGuard,
     AlertService,
     AuthenticationService,
-    UserService,
-    Modal
-    ],
+    UserService],
   bootstrap: [AppComponent],
-  entryComponents: [ CustomModal ,AddModal,UploadModal]
+  entryComponents: [ CustomModal,AddModal,UploadModal ]
+
 
 })
 export class AppModule { }

@@ -11,14 +11,14 @@
               <div class="col-md-6">
                 <div class="form-group">
                   <label>Company (disabled)</label>
-                  <input type="text" class="form-control" disabled placeholder="Company" value="Creative Code Inc.">
+                  <input type="text" class="form-control" disabled id="company" name="company"placeholder="Company" [(ngModel)]="user1.name">
                 </div>
               </div>
 
               <div class="col-md-6">
                 <div class="form-group">
                   <label for="email">Email address</label>
-                  <input type="email" class="form-control" id="email" name="email" placeholder="Email" [(ngModel)]="formData.email">
+                  <input type="email" class="form-control" id="email" name="email" placeholder="Email" [(ngModel)]="user1.email">
                 </div>
               </div>
             </div>
@@ -26,13 +26,13 @@
               <div class="col-md-6">
                 <div class="form-group">
                   <label for="username">Username</label>
-                  <input type="text" class="form-control" id="username" name="username" required placeholder="Username" [(ngModel)]="formData.username">
+                  <input type="text" class="form-control" id="username" name="username" required placeholder="Username" [(ngModel)]="user1.username">
                 </div>
               </div>
               <div class="col-md-6">
                 <div class="form-group">
                   <label for="password">Password</label>
-                  <input type="password" class="form-control" id="password" name="password" required placeholder="password" [(ngModel)]="formData.password">
+                  <input type="password" class="form-control" id="password" name="password" required placeholder="password" [(ngModel)]="user1.password">
                 </div>
               </div>
 
@@ -42,13 +42,13 @@
               <div class="col-md-6">
                 <div class="form-group">
                   <label for="firstName">First Name</label>
-                  <input type="text" class="form-control" id="firstName" name="firstName" placeholder="Company" [(ngModel)]="formData.firstName">
+                  <input type="text" class="form-control" id="firstName" name="firstName" placeholder="Company" [(ngModel)]="user1.first_name">
                 </div>
               </div>
               <div class="col-md-6">
                 <div class="form-group">
                   <label for="lastName">Last Name</label>
-                  <input type="text" class="form-control" id="lastName" name="lastName" placeholder="Last Name" [(ngModel)]="formData.lastName">
+                  <input type="text" class="form-control" id="lastName" name="lastName" placeholder="Last Name" [(ngModel)]="user1.last_name">
                 </div>
               </div>
             </div>
@@ -56,7 +56,7 @@
 
 
 
-            <button type="submit" class="btn btn-info btn-fill pull-right">Update Profile</button>
+            <button type="submit"    class="btn btn-info btn-fill pull-right">Update Profile</button>
             <div class="clearfix"></div>
           </form>
         </div>
@@ -66,10 +66,11 @@
     <div class="col-md-4" [@cardprofile]>
       <lbd-user-profile
         [backgroundImage]="'https://ununsplash.imgix.net/photo-1431578500526-4d9613015464?fit=crop&fm=jpg&h=300&q=75&w=400'"
-        [avatarImage]="'assets/img/faces/face-3.jpg'"
-        [name]="'Mike Andrew'"
-        [username]="'michael24'"
-        [about]="userAbout">
+        [avatarImage]="user1.image"
+        [name]="user1.first_name"
+        [username]="user1.username"
+
+        >
       </lbd-user-profile>
     </div>
 

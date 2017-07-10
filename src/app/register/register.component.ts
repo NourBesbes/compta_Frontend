@@ -1,7 +1,7 @@
 ﻿import { Component, OnInit,ChangeDetectorRef } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { AlertService, UserService } from '../_services/index';
+import { AlertService, UserService,CompanyService } from '../_services/index';
 
 @Component({
    // moduleId: module.id,
@@ -11,13 +11,16 @@ import { AlertService, UserService } from '../_services/index';
 export class RegisterComponent {
    // model: any = {};
     loading = false;
+  registerC=false;
 
     constructor(
         private router: Router,
         private userService: UserService,
-        private alertService: AlertService,private changeDetectorRef: ChangeDetectorRef) { }
+        private alertService: AlertService,
+        private companyService: CompanyService,
+        private changeDetectorRef: ChangeDetectorRef) { }
 
-model:any = {username:'',password:'',imagePath:'',lastName:'',firstName:'',email:''};
+model:any = {username:'',password:'',imagePath:'',lastName:'',firstName:'',email:'',company:''};
 
 
 public file_srcs: string[] = [];
@@ -26,6 +29,55 @@ public debug_size_after: string[] = [];
 
 ngOnInit() {
 }
+  registerComapny() {
+    var compani = JSON.parse(localStorage.getItem("currentCompany"));
+    console.log(compani);
+    this.companyService.create(compani)
+      .subscribe(
+        data => {
+this.registerC=true;
+        });
+  }
+
+
+  sleep(seconds)
+  {
+    var e = new Date().getTime() + (seconds * 1000);
+    while (new Date().getTime() <= e) {}
+  }
+  register() {
+    var compani = JSON.parse(localStorage.getItem("currentCompany"));
+    console.log(compani);
+    this.companyService.create(compani)
+      .subscribe(
+        data => { console.log(data);
+          this.model.company=data._id;
+          this.userService.create(this.model)
+          .subscribe(
+            data => {
+
+              if (data.success==false){
+                this.alertService.error(data.msg);
+                this.loading = false;
+              }
+              else
+              { this.alertService.success('Registration successful', true);
+                this.router.navigate(['/login']);}
+            },
+            error => {
+              this.alertService.error(error);
+              this.loading = false;
+            });
+
+        },
+        error => {
+          this.alertService.error(error);
+          this.loading = false;
+        });
+
+
+  }
+
 
 fileChange(input){
 this.readFiles(input.files);
@@ -35,12 +87,10 @@ readFile(file, reader, callback){
 reader.onload = () => {
 callback(reader.result);
   var url_elem = document.getElementById("image_url");
-
 this.model.imagePath=reader.result;
 }
 reader.readAsDataURL(file);
 }
-
 readFiles(files, index=0){
 // Create the file reader
 let reader = new FileReader();
@@ -52,7 +102,7 @@ this.readFile(files[index], reader, (result) =>{
 var img = document.createElement("img");
 img.src = result;
 // Send this img to the resize function (and wait for callback)
-this.resize(img, 250, 250, (resized_jpeg, before, after)=>{
+this.resize(img, 100, 200, (resized_jpeg, before, after)=>{
 // For debugging (size in bytes before and after)
 this.debug_size_before.push(before);
 this.debug_size_after.push(after);
@@ -112,24 +162,5 @@ callback(dataUrl, img.src.length, dataUrl.length);
 
 }
 
-    register() {
-         this.loading = true;
-        console.log(this.model);
-        this.userService.create(this.model)
-            .subscribe(
-                data => {
 
-                    if (data.success==false){
-                    this.alertService.error(data.msg);
-                    this.loading = false;
-                    }
-                    else
-                   { this.alertService.success('Registration successful', true);
-                    this.router.navigate(['/login']);}
-                },
-                error => {
-                    this.alertService.error(error);
-                    this.loading = false;
-                });
-    }
 }
