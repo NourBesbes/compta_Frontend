@@ -7,7 +7,6 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
 import { Transaction } from '../_models/transaction';
 import {NotificationService, NotificationType, NotificationOptions} from '../lbd/services/notification.service';
-import {forEach} from "@angular/router/src/utils/collection";
 import {UploadModal} from "./upload-modal";
 import {  overlayConfigFactory } from 'angular2-modal';
 import { Modal ,BSModalContext} from 'angular2-modal/plugins/bootstrap';
@@ -59,7 +58,7 @@ export class TransactionComponent implements OnInit {
         var x ;
         var Montant ;
         if (j.Debit) {Montant="+"+j.Debit}
-        if (j.Credit) {Montant="+"+j.Credit}
+        if (j.Credit) {Montant="-"+j.Credit}
         x = {
           Date: j.Date.split("T")[0],
           Libelle: j.Libelle,

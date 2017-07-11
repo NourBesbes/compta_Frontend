@@ -9,9 +9,31 @@
           <h5>Notifications Style</h5>
           <div class="form-group">
           <ng-daterangepicker [(ngModel)]="value" [options]="options"></ng-daterangepicker>
-          <button type="button"(click)="getstartdate(value)" class="btn btn-info">Go</button>
+          <button type="button"(click)="getExerciceComptable(value)" class="btn btn-info">Go</button>
           </div>
         </div>
+
+        <table class="table table-hover table-striped">
+          <thead>
+          <tr>
+            <th>Depenses</th>
+            <th>Recettes</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr>
+          <td *ngFor="let depense of depenses"
+          >
+            {{depense[" "]}}
+          </td>
+            <td *ngFor="let recette of recettes"
+            >
+              {{recette[" "]}}
+            </td>
+          </tr>
+          </tbody>
+        </table>
+
 
   </div>
 </div>

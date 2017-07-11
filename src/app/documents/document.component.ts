@@ -2,7 +2,7 @@ import {Component, OnInit, trigger, state, style, transition, animate, Input} fr
 import {NotificationService, NotificationType, NotificationOptions} from '../lbd/services/notification.service';
 import { NavbarTitleService } from '../lbd/services/navbar-title.service';
 import { NgDateRangePickerOptions } from 'ng-daterangepicker';
-import { Daterangepicker } from 'ng2-daterangepicker';
+import {DocumentService} from "./document.service";
 
 @Component({
   selector: 'app-notifications',
@@ -32,9 +32,16 @@ import { Daterangepicker } from 'ng2-daterangepicker';
 })
 export class DocumentComponent implements OnInit {
   options: NgDateRangePickerOptions;
-  public x:string ;
+  public startdate:string ;
+  public enddate:string ;
+  model:any = {startdate:'',enddate:''};
+  transactions: any = [];
+  depenses: any = [];
+  recettes: any = [];
 
-  constructor(private navbarTitleService: NavbarTitleService, private notificationService: NotificationService) { }
+
+  constructor(private navbarTitleService: NavbarTitleService, private notificationService: NotificationService
+    ,private documentService : DocumentService) { }
 
   public ngOnInit() {
     this.navbarTitleService.updateTitle('Documents Comptable');
@@ -49,12 +56,30 @@ export class DocumentComponent implements OnInit {
 
     };
   }
-  public getstartdate(date:string)
+ /* public getstartdate(date:string)
   {
     this.x=date.split("-")[0];
     console.log(this.x);
     return(date)
+  }*/
+
+  public getExerciceComptable(value:string) {
+    this.startdate=value.split("-")[0];
+    this.enddate=value.split("-")[0];
+
+    this.model={"startdate":this.startdate,"enddate":this.enddate};
+
+    this.documentService.getExerciceComptable(this.model)
+      .subscribe(
+        data => {
+          this.transactions=data ;
+          this.depenses=this.transactions.Depenses;
+          this.recettes=this.transactions.Recettes;
+          console.log(this.transactions);
+
+        })
   }
+
 
 
 }
