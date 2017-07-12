@@ -2,7 +2,7 @@
  * Created by nour on 7/10/17.
  */
 import { Injectable } from '@angular/core';
-import {Http Headers, RequestOptions, RequestMethod} from '@angular/http';
+import {Http, Headers, RequestOptions, RequestMethod} from '@angular/http';
 import {Observable} from 'rxjs/Rx';
 // Import RxJs required methods
 import 'rxjs/add/operator/map';
@@ -11,7 +11,7 @@ import 'rxjs/add/operator/catch';
 @Injectable()
 export class DocumentService {
 
-  constructor(private http: Http,) { }
+  constructor(private http: Http) { }
 
 
   getExerciceComptable(date:string)
@@ -24,5 +24,13 @@ export class DocumentService {
   }
 
 
+  getExerciceComptable1()
+  {   var headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    console.log("Hello From DocumentService; Méthode Ex");
+    //noinspection TypeScriptValidateTypes
+    return this.http.get('http://localhost:3000/transaction/getExComp',{headers: headers}).
+    map((res) =>res.json());
+  }
 
 }

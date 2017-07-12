@@ -16,11 +16,12 @@ import { ConfigComponent } from './config/config.component';
 import { DocumentComponent } from './documents/document.component'
 import {TransactionService} from './transaction/transaction .service';
 import { AlertComponent } from './_directives/index';
-import { AuthGuard } from './_guards/index';
-import { AlertService, AuthenticationService, UserService } from './_services/index';
+import { AuthGuard,AuthCompany } from './_guards/index';
+import { AlertService, AuthenticationService, UserService ,CompanyService} from './_services/index';
 import { HomeComponent } from './home/index';
 import { LoginComponent } from './login/index';
 import { RegisterComponent } from './register/index';
+import { RegisterCompanyComponent} from './register-company/register-company.component';
 import { AdminHomeComponent } from './admin-home/admin-home.component';
 import { LocalStorageModule } from 'angular-2-local-storage';
 import {PopupModule} from 'ng2-opd-popup';
@@ -38,7 +39,8 @@ const appRoutes: Routes = [
   //{ path: '', component: HomeComponent, canActivate: [AuthGuard] },
   { path: 'admin', component: AdminHomeComponent, canActivate: [AuthGuard] },
   { path: 'login', component: LoginComponent },
-  { path: 'register', component: RegisterComponent },
+  { path: 'register', component: RegisterComponent,canActivate: [AuthCompany] },
+  { path: 'registerC', component: RegisterCompanyComponent },
 
   {path: '', component: FooterLayoutComponent, canActivate: [AuthGuard], children:
     [
@@ -70,6 +72,7 @@ const appRoutes: Routes = [
     AlertComponent,
     HomeComponent,
     LoginComponent,
+    RegisterCompanyComponent,
     RegisterComponent,
     AdminHomeComponent,
     DocumentComponent,
@@ -102,7 +105,8 @@ const appRoutes: Routes = [
     AuthenticationService,
     UserService,
     BanqueService,
-    DocumentService],
+    DocumentService,
+    CompanyService],
   bootstrap: [AppComponent],
   entryComponents: [ CustomModal,AddModal,UploadModal ]
 

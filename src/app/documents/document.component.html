@@ -21,14 +21,13 @@
           </tr>
           </thead>
           <tbody>
-          <tr>
-          <td *ngFor="let depense of depenses"
+          <tr  *ngFor="let depense of depenses; let k = index">
+          <td
           >
             {{depense[" "]}}
           </td>
-            <td *ngFor="let recette of recettes"
-            >
-              {{recette[" "]}}
+            <td *ngIf="recettes[k]">
+              {{recettes[k][" "]}}
             </td>
           </tr>
           </tbody>

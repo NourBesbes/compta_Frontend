@@ -40,11 +40,12 @@ export class DocumentComponent implements OnInit {
   recettes: any = [];
 
 
-  constructor(private navbarTitleService: NavbarTitleService, private notificationService: NotificationService
-    ,private documentService : DocumentService) { }
+  constructor(private navbarTitleService: NavbarTitleService, private notificationService: NotificationService,
+              private documentService : DocumentService) { }
 
   public ngOnInit() {
     this.navbarTitleService.updateTitle('Documents Comptable');
+    this.getAllExercice();
     this.options = {
       theme: 'default',
       range: 'tm',
@@ -53,7 +54,6 @@ export class DocumentComponent implements OnInit {
       dateFormat: 'yMd',
       outputFormat: 'DD/MM/YYYY',
       startOfWeek: 1
-
     };
   }
  /* public getstartdate(date:string)
@@ -62,13 +62,25 @@ export class DocumentComponent implements OnInit {
     console.log(this.x);
     return(date)
   }*/
-
+  public getAllExercice()
+  {
+    this.documentService.getExerciceComptable1().subscribe(
+      data => {
+        this.transactions=data ;
+        this.depenses=this.transactions.Depenses;
+        this.recettes=this.transactions.Recettes;
+        console.log(this.transactions);
+        console.log(this.recettes);
+      }
+    )
+  }
   public getExerciceComptable(value:string) {
+    this.transactions=[];
+    this.depenses=[];
+    this.recettes=[];
     this.startdate=value.split("-")[0];
     this.enddate=value.split("-")[0];
-
     this.model={"startdate":this.startdate,"enddate":this.enddate};
-
     this.documentService.getExerciceComptable(this.model)
       .subscribe(
         data => {
@@ -76,9 +88,8 @@ export class DocumentComponent implements OnInit {
           this.depenses=this.transactions.Depenses;
           this.recettes=this.transactions.Recettes;
           console.log(this.transactions);
-
-        })
-  }
+          console.log(this.recettes);
+        })}
 
 
 
