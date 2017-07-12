@@ -16,7 +16,7 @@ import { ConfigComponent } from './config/config.component';
 import { DocumentComponent } from './documents/document.component'
 import {TransactionService} from './transaction/transaction .service';
 import { AlertComponent } from './_directives/index';
-import { AuthGuard,AuthCompany } from './_guards/index';
+import { AuthGuard,AuthCompany,AuthAdmin } from './_guards/index';
 import { AlertService, AuthenticationService, UserService ,CompanyService} from './_services/index';
 import { HomeComponent } from './home/index';
 import { LoginComponent } from './login/index';
@@ -48,7 +48,7 @@ const appRoutes: Routes = [
       { path: 'user', component: UserComponent },
       { path: 'transaction', component: TransactionComponent },
       { path: 'banque', component: BanqueComponent },
-      { path: 'icons', component: IconsComponent },
+      { path: 'icons', component: IconsComponent,canActivate: [AuthAdmin] },
       { path: 'doc', component: DocumentComponent },
       { path: '**', redirectTo: 'deshboard' },
       { path: 'config', component: ConfigComponent }
@@ -101,6 +101,8 @@ const appRoutes: Routes = [
   providers: [
     TransactionService,
     AuthGuard,
+    AuthAdmin,
+    AuthCompany,
     AlertService,
     AuthenticationService,
     UserService,

@@ -11,6 +11,7 @@
     </div>
     <div class="collapse navbar-collapse">
       <lbd-navbar-items [navItems]="leftNavItems" [navbarClass]="'navbar-left'" [showTitles]="false"></lbd-navbar-items>
+
       <lbd-navbar-items (click)="logOut()" [navItems]="rightNavItems" [navbarClass]="'navbar-right'" [showTitles]="true"></lbd-navbar-items>
     </div>
   </div>

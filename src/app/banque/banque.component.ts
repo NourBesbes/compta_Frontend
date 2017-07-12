@@ -45,6 +45,7 @@ export class BanqueComponent implements OnInit {
 
 
   constructor(private navbarTitleService: NavbarTitleService,private http: Http,private banqueService: BanqueService,
+              
 
   private alertService: AlertService,public modal: Modal,private notificationService: NotificationService) { }
 
