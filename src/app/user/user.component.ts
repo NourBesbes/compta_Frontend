@@ -49,10 +49,11 @@ import {User} from "../_models/user";
 })
 export class UserComponent implements OnInit {
   public formData: any;
-  public userAbout: string;
+
   public currentUser:any;
   public user:any;
   public  user1 ={"username":"","password":"","email":"", "first_name":"","last_name":"","image":"","company":"","name":""};
+  model:any = {_id:'',username:'',password:'',imagePath:'',last_name:'',first_name:'',email:'',company:'',role:''};
   constructor(private navbarTitleService: NavbarTitleService,private userService:UserService) { }
 
   public ngOnInit() {
@@ -60,7 +61,6 @@ export class UserComponent implements OnInit {
   this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
 
     this.getCurrentUser();
-    this.userAbout = '"Lamborghini Mercy <br>Your chick she so thirsty <br>I\'m in that two seat Lambo"';
 
   }
   public onSubmit() {
@@ -74,7 +74,7 @@ export class UserComponent implements OnInit {
   public getCurrentUser()
   {
     this.userService.getByUsername(this.currentUser.username).subscribe((data) => { this.user = data;
-
+      console.log(this.user);
         this.user1.username=this.user.username;
         this.user1.password=this.user.password;
         this.user1.email=this.user.email;

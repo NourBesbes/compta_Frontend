@@ -36,8 +36,8 @@ import {BanqueService} from "./banque/banque.service";
 import {DocumentService} from "./documents/document.service";
 
 const appRoutes: Routes = [
-  //{ path: '', component: HomeComponent, canActivate: [AuthGuard] },
- // { path: 'admin', component: AdminHomeComponent, canActivate: [AuthGuard] },
+
+  { path: 'admin', component: AdminHomeComponent, canActivate: [AuthGuard] },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent,canActivate: [AuthCompany] },
   { path: 'registerC', component: RegisterCompanyComponent },
@@ -115,4 +115,8 @@ const appRoutes: Routes = [
 
 
 })
-export class AppModule { }
+export class AppModule {
+
+
+
+}

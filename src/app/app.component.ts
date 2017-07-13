@@ -7,11 +7,15 @@ import { NavItem, NavItemType } from './lbd/lbd.module';
 })
 export class AppComponent implements OnInit {
   public navItems: NavItem[];
-
+public bool:boolean=true;
   constructor() {
   }
 
   public ngOnInit(): void {
+    if (!localStorage.getItem("currentUser"))
+    this.bool=false;
+    else this.bool=true;
+
     this.navItems = [
       { type: NavItemType.Sidebar, title: 'Dashboard', routerLink: 'dashboard', iconClass: 'pe-7s-graph' },
       { type: NavItemType.Sidebar, title: 'User Profile', routerLink: 'user', iconClass: 'pe-7s-user' },

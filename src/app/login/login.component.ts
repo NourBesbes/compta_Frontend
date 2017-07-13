@@ -20,7 +20,7 @@ export class LoginComponent implements OnInit {
         private alertService: AlertService) { }
 
     ngOnInit() {
-      
+
         // reset login status
      //   this.authenticationService.logout();
 if (localStorage.getItem("currentUser")) this.router.navigate(['/dashboard']);
@@ -36,8 +36,8 @@ if (localStorage.getItem("currentUser")) this.router.navigate(['/dashboard']);
                 data => {
                   if (data.success==true) {
                     var store = JSON.parse(localStorage.getItem("currentUser"));
-
-                    if (store.role == "admin") this.router.navigate(['admin']);
+                    console.log(data.role);
+                    if (data.role == "superAdmin") this.router.navigate(['admin']);
                     else this.router.navigate([this.returnUrl]);
                   }
                 else
