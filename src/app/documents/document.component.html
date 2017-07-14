@@ -22,12 +22,11 @@
           </thead>
           <tbody>
           <tr  *ngFor="let depense of depenses; let k = index">
-          <td
-          >
-            {{depense[" "]}}
+          <td>
+            {{depense["libelle"]}}{{depense["valeur"]}}
           </td>
             <td *ngIf="recettes[k]">
-              {{recettes[k][" "]}}
+              {{recettes[k]["libelle"]}}{{recettes[k]["valeur"]}}
             </td>
             <td *ngIf="!recettes[k]">
 

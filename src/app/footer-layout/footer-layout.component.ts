@@ -12,12 +12,7 @@ export class FooterLayoutComponent implements OnInit {
   constructor() { }
 
   public ngOnInit() {
-    this.footerItems = [
-      { title: 'Home', routerLink: '' },
-      { title: 'Company', routerLink: '' },
-      { title: 'Banque', routerLink: '' },
-      { title: 'User Profile', routerLink: '' }
-    ];
+
     this.copyright = '&copy; 2017 <a href="http://www.devstriker.com">Devstriker</a>, made with love ';
   }
 }

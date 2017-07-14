@@ -34,6 +34,9 @@ import {NgxPaginationModule} from 'ngx-pagination';
 import { NgDateRangePickerModule } from 'ng-daterangepicker';
 import {BanqueService} from "./banque/banque.service";
 import {DocumentService} from "./documents/document.service";
+import {ConfigService} from "./config/config.service";
+import {BudgetUpdateModal} from "./config/updateform-modal";
+import {BudgetAddModal} from "./config/addform-modal";
 
 const appRoutes: Routes = [
 
@@ -79,7 +82,9 @@ const appRoutes: Routes = [
     DocumentComponent,
     CustomModal,
     AddModal,
-    UploadModal
+    UploadModal,
+    BudgetUpdateModal,
+    BudgetAddModal
   ],
   imports: [
     LocalStorageModule.withConfig({
@@ -109,9 +114,10 @@ const appRoutes: Routes = [
     UserService,
     BanqueService,
     DocumentService,
-    CompanyService],
+    CompanyService,
+    ConfigService],
   bootstrap: [AppComponent],
-  entryComponents: [ CustomModal,AddModal,UploadModal ]
+  entryComponents: [ CustomModal,AddModal,UploadModal,BudgetUpdateModal,BudgetAddModal ]
 
 
 })

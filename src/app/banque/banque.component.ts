@@ -41,11 +41,7 @@ export class BanqueComponent implements OnInit {
   model:any = {name:'',swift:'',IBAN:'',Banque:''};
   p: number = 1;
 
-
-
-
   constructor(private navbarTitleService: NavbarTitleService,private http: Http,private banqueService: BanqueService,
-              
 
   private alertService: AlertService,public modal: Modal,private notificationService: NotificationService) { }
 

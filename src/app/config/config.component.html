@@ -1,15 +1,18 @@
+<span defaultOverlayTarget>
 <accordion>
   <accordion-group #group1 [isOpen]="true">
-
     <div accordion-heading>
       Gestion des budgets
       <i class="pull-right float-sm-right glyphicon arrows-btn"
          [ngClass]="{'pe-7s-angle-up': group1?.isOpen, 'pe-7s-angle-down': !group1?.isOpen}" ></i>
     </div>
     <div class="col-md-12">
+      <div class="row">
+        <button type="button"  (click)="onClickAdd()" class="btn btn-info">Ajouter un budget</button>
       <div class="search" style="margin-left: 70%">
         <input type="text" class="form-control" id="budget" name="budget" required placeholder="Recherche Budget">
         <button class="btn  btn-simple pull-right custom-btn"><i class="fa fa-search custom-loop-icon" ></i></button>
+      </div>
       </div>
     </div>
     <br>
@@ -24,58 +27,23 @@
         </tr>
         </thead>
         <tbody>
-        <tr>
-          <td>budget 0</td>
+        <tr *ngFor="let budget of budgets| paginate: { itemsPerPage: 4, currentPage: p }">
+          <td>{{budget.name}}</td>
           <td class="td-actions text-center">
-            <button title="Edit Task" class="btn btn-info btn-simple btn-sm arrows-btn">
+            <button title="Edit Task" (click)="onClickUpdate(budget)" class="btn btn-info btn-simple btn-sm arrows-btn">
               <i class="fa fa-edit"></i>
             </button>
-            <button type="button" title="Remove" class="btn btn-danger btn-simple btn-s arrows-btn">
+            <button type="button" title="Remove" (click)="delete(budget)" class="btn btn-danger btn-simple btn-s arrows-btn">
               <i class="fa fa-times"></i>
             </button>
           </td>
-
         </tr>
-        <tr>
-          <td>budget 1</td>
-          <td class="td-actions text-center">
-            <button title="Edit Task" class="btn btn-info btn-simple btn-s arrows-btn">
-              <i class="fa fa-edit"></i>
-            </button>
-            <button type="button" title="Remove" class="btn btn-danger btn-simple btn-sm arrows-btn">
-              <i class="fa fa-times"></i>
-            </button>
-          </td>
 
-        </tr>
-        <tr>
-          <td>budget 2</td>
-          <td class="td-actions text-center">
-            <button title="Edit Task" class="btn btn-info btn-simple btn-sm arrows-btn">
-              <i class="fa fa-edit"></i>
-            </button>
-            <button type="button" title="Remove" class="btn btn-danger btn-simple btn-sm arrows-btn">
-              <i class="fa fa-times"></i>
-            </button>
-          </td>
-
-        </tr>
-        <tr>
-          <td>budget 3</td>
-          <td class="td-actions text-center">
-            <button title="Edit Task" class="btn btn-info btn-simple btn-sm arrows-btn">
-              <i class="fa fa-edit"></i>
-            </button>
-            <button type="button" title="Remove" class="btn btn-danger btn-simple btn-sm arrows-btn">
-              <i class="fa fa-times"></i>
-            </button>
-          </td>
-
-        </tr>
         </tbody>
       </table>
-    </div>
+            <p align="right"> <pagination-controls (pageChange)="p = $event"></pagination-controls></p>
 
+    </div>
 
   </accordion-group>
   <accordion-group #group2 [isOpen]="true">
@@ -84,8 +52,68 @@
       <i class="pull-right float-xs-right glyphicon arrows-btn" style="font-size: medium;"
          [ngClass]="{'pe-7s-angle-up': group2?.isOpen, 'pe-7s-angle-down': !group2?.isOpen}"></i>
     </div>
-    dropdown menu pour chosir le budget
-    En fonction du budget chosi affichage du tableau des sous budgets
+
+    <div class="col-md-3">
+      <label  class="control-label"> Budget</label>
+      <select  [(ngModel)]="SelectedBudget" class="col-md-6 form-control" ng-required="true" (click)="getsousBudget()" >
+        <option *ngFor='let budget of budgets' [ngValue]="budget">{{budget.name}}</option>
+      </select>
+    </div>
+
+
+    <form name="form" (ngSubmit)="f.form.valid && addSousBudget(SelectedBudget)" #f="ngForm" novalidate>
+
+    <div class="form-group" [ngClass]="{ 'has-error': f.submitted  }">
+      <label class="control-label" for="sousBudget">sous Budget</label>
+      <input type="text" class="form-control" name="sousBudget" [(ngModel)]="model.sousBudget" #sousBudget="ngModel"  minlength="4" maxlength="20" required />
+      <div *ngIf="sousBudget.errors" class="alert alert-danger">
+        <div [hidden]="!sousBudget.errors.minlength">
+          Name must be at least 4 characters long.
+        </div>
+        <div [hidden]="!sousBudget.errors.maxlength">
+          Name cannot be more than 20 characters long.
+        </div>
+      </div>
+    </div>
+      <div class="content table-responsive table-full-width">
+      <table class="table table-hover table-striped">
+        <thead>
+        <tr>
+          <th>Nom budget</th>
+          <th class="td-actions text-center">Actions</th>
+
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let sousbudget of sousBudgets| paginate: { itemsPerPage: 4, currentPage: d }">
+          <td>
+            {{sousbudget}}</td>
+          <td class="td-actions text-center">
+            <button title="Edit Task"  class="btn btn-info btn-simple btn-sm arrows-btn">
+              <i class="fa fa-edit"></i>
+            </button>
+            <button type="button" title="Remove"  class="btn btn-danger btn-simple btn-s arrows-btn">
+              <i class="fa fa-times"></i>
+            </button>
+          </td>
+        </tr>
+
+        </tbody>
+      </table>
+            <p align="right"> <pagination-controls (pageChange)="d = $event"></pagination-controls></p>
+
+    </div>
+
+      <!-- Button -->
+    <div class="col-md-12">
+      <div class="form-group">
+        <button id="singlebutton125" class="btn btn-info" [disabled]="!f.form.valid" (onclick)="addSousBudget(SelectedBudget)" >Ajouter Sous Budget</button>
+      </div>
+    </div>
+  </form>
+
+
+
   </accordion-group>
   <accordion-group #group3 [isOpen]="true">
     <div accordion-heading>
@@ -96,3 +124,4 @@
     I dont't know what to put here
   </accordion-group>
 </accordion>
+</span>

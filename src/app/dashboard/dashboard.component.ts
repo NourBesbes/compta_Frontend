@@ -3,6 +3,7 @@ import { LegendItem, ChartType } from '../lbd/lbd-chart/lbd-chart.component';
 import { Task } from '../lbd/lbd-task-list/lbd-task-list.component';
 import {NotificationService, NotificationOptions} from '../lbd/services/notification.service';
 import { NavbarTitleService } from '../lbd/services/navbar-title.service';
+import {DocumentService} from "../documents/document.service";
 
 @Component({
   selector: 'app-dashboard',
@@ -87,6 +88,9 @@ import { NavbarTitleService } from '../lbd/services/navbar-title.service';
   ]
 })
 export class DashboardComponent implements OnInit {
+  public data :any ;
+  public depense : number;
+  public recette : number;
   public emailChartType: ChartType;
   public emailChartData: any;
   public emailChartLegendItems: LegendItem[];
@@ -97,15 +101,9 @@ export class DashboardComponent implements OnInit {
   public hoursChartResponsive: any[];
   public hoursChartLegendItems: LegendItem[];
 
-  public activityChartType: ChartType;
-  public activityChartData: any;
-  public activityChartOptions: any;
-  public activityChartResponsive: any[];
-  public activityChartLegendItems: LegendItem[];
 
-  public tasks: Task[];
-
-  constructor(private navbarTitleService: NavbarTitleService, private notificationService: NotificationService) { }
+  constructor(private navbarTitleService: NavbarTitleService, private notificationService: NotificationService
+    ,private documentService:DocumentService) { }
 
   public ngOnInit() {
     this.navbarTitleService.updateTitle('Dashboard');
@@ -115,16 +113,43 @@ export class DashboardComponent implements OnInit {
       icon: 'pe-7s-home'
     }));
 
-    this.emailChartType = ChartType.Pie;
-    this.emailChartData = {
-      labels: ['62%', '32%', '6%'],
-      series: [62, 32, 6]
-    };
-    this.emailChartLegendItems = [
-      { title: 'Open', imageClass: 'fa fa-circle text-info' },
-      { title: 'Bounce', imageClass: 'fa fa-circle text-danger' },
-      { title: 'Unsubscribe', imageClass: 'fa fa-circle text-warning' }
-    ];
+      this.documentService.getExerciceComptable1()
+        .subscribe(
+          data => {
+            this.data=data;
+            this.depense=((data.Depenses.length*100)/(data.Depenses.length+this.data.Recettes.length));
+            console.log(this.depense)
+            this.recette=(data.Recettes.length*100)/(data.Depenses.length+this.data.Recettes.length);
+            console.log(this.recette);
+            console.log("hellllllo");
+            this.emailChartType = ChartType.Pie;
+            this.emailChartData = {
+              labels: ['%', '%'],
+              series: [50, 50]
+            };
+            this.emailChartLegendItems = [
+              {title: 'Open', imageClass: 'fa fa-circle text-info'},
+              {title: 'Bounce', imageClass: 'fa fa-circle text-danger'},
+              {title: 'Unsubscribe', imageClass: 'fa fa-circle text-warning'}
+            ];
+
+          });
+
+if (this.data) {
+        console.log("hellllllo");
+  this.emailChartType = ChartType.Pie;
+  this.emailChartData = {
+    labels: ['%', '%'],
+    series: [50, 50]
+  };
+  this.emailChartLegendItems = [
+    {title: 'Open', imageClass: 'fa fa-circle text-info'},
+    {title: 'Bounce', imageClass: 'fa fa-circle text-danger'},
+    {title: 'Unsubscribe', imageClass: 'fa fa-circle text-warning'}
+  ];
+}
+
+
 
     this.hoursChartType = ChartType.Line;
     this.hoursChartData = {
@@ -164,46 +189,7 @@ export class DashboardComponent implements OnInit {
       { title: 'Click Second Time', imageClass: 'fa fa-circle text-warning' }
     ];
 
-    this.activityChartType = ChartType.Bar;
-    this.activityChartData = {
-      labels: ['Jan', 'Feb', 'Mar', 'Apr', 'Mai', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-      series: [
-        [542, 443, 320, 780, 553, 453, 326, 434, 568, 610, 756, 895],
-        [412, 243, 280, 580, 453, 353, 300, 364, 368, 410, 636, 695]
-      ]
-    };
-    this.activityChartOptions = {
-      seriesBarDistance: 10,
-      axisX: {
-        showGrid: false
-      },
-      height: '245px'
-    };
-    this.activityChartResponsive = [
-      ['screen and (max-width: 640px)', {
-        seriesBarDistance: 5,
-        axisX: {
-          labelInterpolationFnc: function (value) {
-            return value[0];
-          }
-        }
-      }]
-    ];
-    this.activityChartLegendItems = [
-      { title: 'Tesla Model S', imageClass: 'fa fa-circle text-info' },
-      { title: 'BMW 5 Series', imageClass: 'fa fa-circle text-danger' }
-    ];
 
-    this.tasks = [
-      { title: 'Sign contract for \'What are conference organizers afraid of?\'', checked: false },
-      { title: 'Lines From Great Russian Literature? Or E-mails From My Boss?', checked: true },
-      {
-        title: 'Flooded: One year later, assessing what was lost and what was found when a ravaging rain swept through metro Detroit',
-        checked: true
-      },
-      { title: 'Create 4 Invisible User Experiences you Never Knew About', checked: false },
-      { title: 'Read \'Following makes Medium better\'', checked: false },
-      { title: 'Unfollow 5 enemies from twitter', checked: false },
-    ];
+
   }
 }
