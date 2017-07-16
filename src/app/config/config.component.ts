@@ -21,6 +21,8 @@ export class ConfigComponent {
   public budgets :any [] ;
   public sousBudgets :any [] ;
 
+  sousBudgetmodel:any={sousBudget:'', _id:''}
+
   p: number = 1;
   d: number = 1;
 
@@ -89,6 +91,29 @@ export class ConfigComponent {
   public getsousBudget()
   { this.sousBudgets=this.SelectedBudget["sousBudget"];
 
+  }
+
+  public deleteSousBudget(sousbudget) {
+    if (confirm('Are you sure you want to delete ' + sousbudget)) {
+      const type = Math.floor((Math.random() * 4) + 1);
+      this.sousBudgetmodel._id = this.SelectedBudget["_id"];
+      this.sousBudgetmodel.sousBudget = sousbudget;
+      console.log(this.sousBudgetmodel);
+      this.configService.deleteSousBudget(this.sousBudgetmodel).subscribe(
+        data => {
+          this.notificationService.notify(new NotificationOptions({
+            message: 'Le sous budget a été supprimé',
+            icon: 'pe-7s-trash',
+            type: <NotificationType>(type),
+            from: 'top',
+            align: 'right'
+          }));
+
+          this.sousBudgets = this.SelectedBudget["sousBudget"];
+
+
+        })
+    }
   }
 
   }

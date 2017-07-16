@@ -55,18 +55,19 @@
 
     <div class="col-md-3">
       <label  class="control-label"> Budget</label>
+      <p align="left">
       <select  [(ngModel)]="SelectedBudget" class="col-md-6 form-control" ng-required="true" (click)="getsousBudget()" >
         <option *ngFor='let budget of budgets' [ngValue]="budget">{{budget.name}}</option>
       </select>
-    </div>
-
-
+        </div>
+    <br><br><br>
     <form name="form" (ngSubmit)="f.form.valid && addSousBudget(SelectedBudget)" #f="ngForm" novalidate>
-
+      <p align="left">
+        <div class="col-md-3">
     <div class="form-group" [ngClass]="{ 'has-error': f.submitted  }">
       <label class="control-label" for="sousBudget">sous Budget</label>
-      <input type="text" class="form-control" name="sousBudget" [(ngModel)]="model.sousBudget" #sousBudget="ngModel"  minlength="4" maxlength="20" required />
-      <div *ngIf="sousBudget.errors" class="alert alert-danger">
+      <input type="text"  align="right" class="form-control" name="sousBudget" [(ngModel)]="model.sousBudget" #sousBudget="ngModel"  minlength="4" maxlength="20" required />
+      <div *ngIf="sousBudget.errors">
         <div [hidden]="!sousBudget.errors.minlength">
           Name must be at least 4 characters long.
         </div>
@@ -75,6 +76,15 @@
         </div>
       </div>
     </div>
+    </div>
+      <!-- Button -->
+    <div class="col-md-12">
+      <div class="form-group">
+        <button id="singlebutton125" class="btn btn-info" [disabled]="!f.form.valid" (onclick)="addSousBudget(SelectedBudget)" >Ajouter Sous Budget</button>
+      </div>
+    </div>
+
+      <!--Table-->
       <div class="content table-responsive table-full-width">
       <table class="table table-hover table-striped">
         <thead>
@@ -89,10 +99,7 @@
           <td>
             {{sousbudget}}</td>
           <td class="td-actions text-center">
-            <button title="Edit Task"  class="btn btn-info btn-simple btn-sm arrows-btn">
-              <i class="fa fa-edit"></i>
-            </button>
-            <button type="button" title="Remove"  class="btn btn-danger btn-simple btn-s arrows-btn">
+            <button type="button" title="Remove" (click)="deleteSousBudget(sousbudget)" class="btn btn-danger btn-simple btn-s arrows-btn">
               <i class="fa fa-times"></i>
             </button>
           </td>
@@ -104,12 +111,6 @@
 
     </div>
 
-      <!-- Button -->
-    <div class="col-md-12">
-      <div class="form-group">
-        <button id="singlebutton125" class="btn btn-info" [disabled]="!f.form.valid" (onclick)="addSousBudget(SelectedBudget)" >Ajouter Sous Budget</button>
-      </div>
-    </div>
   </form>
 
 

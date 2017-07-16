@@ -47,8 +47,7 @@ export class ConfigService {
   {   var headers = new Headers();
     headers.append('Content-Type', 'application/json');
     console.log("Hello From ConfigService; Méthode Add sous budget");
-    console.log(budget);
-    //noinspection TypeScriptValidateTypes
+
     return this.http.post('http://localhost:3000/budget/addsousbudget/'+budget._id,  JSON.stringify(budget), {headers: headers}).
     map((res) =>res.json());
   }
@@ -59,6 +58,14 @@ export class ConfigService {
     headers.append('Content-Type', 'application/json');
     return this.http.put('http://localhost:3000/budget/update/'+budget._id, JSON.stringify(budget), {headers: headers})
       .map(res => res.json());
+  }
+
+  public deleteSousBudget(budget) {
+    console.log("Hello From ConfigService; Méthode Delete Sous Budget");
+    var headers = new Headers();
+    return this.http.post('http://localhost:3000/budget/deletesousbudget/'+budget._id,  JSON.stringify(budget), {headers: headers}).
+    map((res) =>res.json());
+
   }
 
 }
