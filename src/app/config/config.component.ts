@@ -26,7 +26,7 @@ export class ConfigComponent {
   p: number = 1;
   d: number = 1;
 
-  model:any = {sousBudget:'',_id:''};
+  model:any = {sousBudget:'',id:''};
   SelectedBudget : Object = {};
 
   constructor(private navbarTitleService: NavbarTitleService,private http: Http,private configService: ConfigService,
@@ -96,7 +96,7 @@ export class ConfigComponent {
   public deleteSousBudget(sousbudget) {
     if (confirm('Are you sure you want to delete ' + sousbudget)) {
       const type = Math.floor((Math.random() * 4) + 1);
-      this.sousBudgetmodel._id = this.SelectedBudget["_id"];
+      this.sousBudgetmodel.id = this.SelectedBudget["_id"];
       this.sousBudgetmodel.sousBudget = sousbudget;
       console.log(this.sousBudgetmodel);
       this.configService.deleteSousBudget(this.sousBudgetmodel).subscribe(

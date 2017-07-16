@@ -59,11 +59,12 @@ export class ConfigService {
     return this.http.put('http://localhost:3000/budget/update/'+budget._id, JSON.stringify(budget), {headers: headers})
       .map(res => res.json());
   }
-
+  endpoint_url='http://localhost:3000/budget/deletesousbudget';
   public deleteSousBudget(budget) {
     console.log("Hello From ConfigService; Méthode Delete Sous Budget");
-    var headers = new Headers();
-    return this.http.post('http://localhost:3000/budget/deletesousbudget/'+budget._id,  JSON.stringify(budget), {headers: headers}).
+    const url=`${this.endpoint_url}/${budget.id}`;
+    console.log(url);
+    return this.http.post('http://localhost:3000/budget/deletesousbudget/'+budget.id,  budget).
     map((res) =>res.json());
 
   }

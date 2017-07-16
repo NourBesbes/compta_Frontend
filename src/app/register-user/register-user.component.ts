@@ -138,7 +138,6 @@ company:Company;
       }
 
 // create a canvas object
-
       var canvas = document.createElement("canvas");
 
 // Set the canvas to the new calculated dimensions
@@ -153,9 +152,6 @@ company:Company;
 
 // callback with the results
       callback(dataUrl, img.src.length, dataUrl.length);
-
     };
-
   }
-
 }

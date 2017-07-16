@@ -40,13 +40,11 @@ import {BudgetAddModal} from "./config/addform-modal";
 import { RegisterUserComponent } from './register-user/register-user.component';
 
 const appRoutes: Routes = [
-
   { path: 'admin', component: AdminHomeComponent, canActivate: [AuthGuard] },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent,canActivate: [AuthCompany] },
   { path: 'registerC', component: RegisterCompanyComponent },
   { path: 'registerUser/:_id', component:  RegisterUserComponent },
-
   {path: '', component: FooterLayoutComponent, canActivate: [AuthGuard], children:
     [
       { path: 'dashboard', component: DashboardComponent },
@@ -57,8 +55,6 @@ const appRoutes: Routes = [
       { path: 'doc', component: DocumentComponent },
       { path: 'config', component: ConfigComponent },
       { path: '**', redirectTo: 'dashboard' }
-
-
     ]
   },
   // otherwise redirect to home
