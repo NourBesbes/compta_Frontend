@@ -13,6 +13,7 @@ export class UserService {
     constructor(private http: Http, private localStorage: LocalStorageService) { }
 endpoint_url='http://localhost:3000/user/findUser';
 update_url='http://localhost:3000/user/update';
+  role_url='http://localhost:3000/user/findUserRole';
     getAll()
     {
         //noinspection TypeScriptValidateTypes
@@ -28,13 +29,20 @@ getByUsername(username:string)
       get(url)
         .map((response: Response) =>response.json());
     }
-
+  getRoleByUsername(username:string)
+  {
+    const url=`${this.role_url}/${username}`;
+    console.log(url);
+    return this.http.
+    get(url)
+      .map((response: Response) =>response.json());
+  }
     create(user: User)
     {
         console.log("Hello From UserService; Méthode Create");
         console.log(user);
         //noinspection TypeScriptValidateTypes
-      return this.http.post('http://localhost:3000/user/signup1', user, this.jwt()).
+      return this.http.post('http://localhost:3000/user/signup1', user).
         map((response: Response) =>response.json());
     }
 
@@ -53,6 +61,13 @@ getByUsername(username:string)
         return this.http.delete('/api/users/' + id, this.jwt()).map((
           response: Response) => response.json());
     }
+
+  addUser(model:any)
+  {
+    return this.http.post("http://localhost:3000/user/addusers",model).
+    map((response: Response) =>response.json());
+  }
+
 
     // private helper methods
 

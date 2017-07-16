@@ -37,6 +37,7 @@ import {DocumentService} from "./documents/document.service";
 import {ConfigService} from "./config/config.service";
 import {BudgetUpdateModal} from "./config/updateform-modal";
 import {BudgetAddModal} from "./config/addform-modal";
+import { RegisterUserComponent } from './register-user/register-user.component';
 
 const appRoutes: Routes = [
 
@@ -44,6 +45,7 @@ const appRoutes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent,canActivate: [AuthCompany] },
   { path: 'registerC', component: RegisterCompanyComponent },
+  { path: 'registerUser/:_id', component:  RegisterUserComponent },
 
   {path: '', component: FooterLayoutComponent, canActivate: [AuthGuard], children:
     [
@@ -84,7 +86,8 @@ const appRoutes: Routes = [
     AddModal,
     UploadModal,
     BudgetUpdateModal,
-    BudgetAddModal
+    BudgetAddModal,
+    RegisterUserComponent
   ],
   imports: [
     LocalStorageModule.withConfig({

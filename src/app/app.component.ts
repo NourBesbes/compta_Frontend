@@ -29,7 +29,7 @@ public bool:boolean=true;
 
 
 
-      { type: NavItemType.NavbarRight, title: 'Account' ,routerLink: 'user' },
+     // { type: NavItemType.NavbarRight, title: 'Account' ,routerLink: 'user' },
 
       { type: NavItemType.NavbarRight, title: 'Log out' }
     ];

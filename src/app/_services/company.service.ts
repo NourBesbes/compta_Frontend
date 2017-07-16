@@ -7,6 +7,7 @@ export class CompanyService {
   constructor(private http: Http) { }
   company_url='http://localhost:3000/company/add';
   endpoint_url='http://localhost:3000/company/deletecompany';
+  get_url='http://localhost:3000/company/findcompany';
 
   create(company: any)
   {
@@ -29,4 +30,17 @@ deleteCompany(id:string)
   return this.http.delete(url).
   map((response: Response) =>response.json());
 }
+
+  getCompany(companyId : string):Promise<Company>
+  {
+    const url=`${this.get_url}/${companyId}`;
+    console.log(url);
+    return this.http.
+    get(url).
+    toPromise().
+    then(response => response.json()).
+    then(company => new Company(company));
+  }
+
+
 }

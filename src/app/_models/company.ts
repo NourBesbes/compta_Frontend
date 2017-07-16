@@ -6,5 +6,7 @@ export class Company {
   name:string;
   matricule : string;
   adress:string
-
+  constructor(data) {
+    Object.assign(this, data);
+  }
 }

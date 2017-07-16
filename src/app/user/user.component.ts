@@ -81,9 +81,9 @@ export class UserComponent implements OnInit {
         this.user1.first_name=this.user.first_name;
         this.user1.last_name=this.user.last_name;
         this.user1.image=this.user.imagePath;
-        this.user1.company=this.user.company._id;
+        this.user1.company=this.user.company;
         this.user1.name=this.user.company.name;
-
+      console.log(this.user1);
  });
 
   }

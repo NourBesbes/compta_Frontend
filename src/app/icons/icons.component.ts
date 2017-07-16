@@ -1,5 +1,8 @@
 import {Component, OnInit, trigger, state, style, transition, animate} from '@angular/core';
 import { NavbarTitleService } from '../lbd/services/navbar-title.service';
+import {UserService} from "../_services/user.service";
+import {NotificationService, NotificationType, NotificationOptions} from '../lbd/services/notification.service';
+import {CompanyService} from "../_services/company.service";
 
 @Component({
   selector: 'app-icons',
@@ -28,13 +31,36 @@ import { NavbarTitleService } from '../lbd/services/navbar-title.service';
   ]
 })
 export class IconsComponent implements OnInit {
-
+model:any={to:'',text:''};
   public iconClasses: string[];
 
-  constructor(private navbarTitleService: NavbarTitleService) { }
+  constructor(private navbarTitleService: NavbarTitleService,
+              private userService:UserService,
+              private notificationService: NotificationService,
+  private companyService:CompanyService) { }
+
+  SendMail()
+  {var store = JSON.parse(localStorage.getItem("currentUser"));
+
+    this.model.text="http://localhost:4200/registerUser/" +store.company ;
+
+    console.log(this.model);
+    this.userService.addUser(this.model).subscribe(data => {console.log(data);
+      this.notificationService.notify(new NotificationOptions({
+        message: 'Votre mail a été envoyé!',
+        icon: 'pe-7s-delete-user',
+        type: NotificationType.Success,
+        from: 'top',
+        align: 'right'
+      }))
+      ;});
+
+  }
 
   ngOnInit() {
-    this.navbarTitleService.updateTitle('Icons');
+    this.navbarTitleService.updateTitle('Administration');
+
+
 
     this.iconClasses = [
       'pe-7s-album',
