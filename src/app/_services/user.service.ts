@@ -29,6 +29,13 @@ getByUsername(username:string)
       get(url)
         .map((response: Response) =>response.json());
     }
+  getBycompany(idC:string)
+  {
+    return this.http.
+    get('http://localhost:3000/user/getUsersFromCompany/'+idC)
+      .map((response: Response) =>response.json());
+  }
+
   getRoleByUsername(username:string)
   {
     const url=`${this.role_url}/${username}`;
@@ -56,9 +63,9 @@ getByUsername(username:string)
 
     }
 
-    delete(id: number) {
+    delete(user:any) {
       //noinspection TypeScriptValidateTypes
-        return this.http.delete('/api/users/' + id, this.jwt()).map((
+        return this.http.delete('http://localhost:3000/user/deleteUser/' + user.username).map((
           response: Response) => response.json());
     }
 
