@@ -1,4 +1,4 @@
-<span defaultOverlayTarget>
+<span defaultOverlayTarget xmlns:color="http://www.w3.org/1999/xhtml">
   <div class="row">
     <button type="button"(click)="onClickUpload()" class="btn btn-info">Importer</button>
 
@@ -11,16 +11,20 @@
       <th>Libelle</th>
       <th>Montant</th>
       <th>Budget</th>
-    </tr>
+      <th>Sous Budget</th>
+     </tr>
     </thead>
     <tbody>
     <tr *ngFor="let transaction of transactions| paginate: { itemsPerPage: 8, currentPage: p }"
     >
       <td>{{transaction.Date}}</td>
       <td>{{transaction.Libelle}}</td>
-      <td>{{transaction.Montant}}</td>
+      <td ng-class='{red :transaction.color, black: transaction.Montant[0]=="+"}'>{{transaction.Montant}}</td>
+      <td *ngIf="transaction.budget[0]">{{transaction.budget[0]["name"]}}</td>
+      <td >{{transaction.sousBudget}}</td>
+
       <td class="td-actions text-right">
-        <button type="button" (click)="ClickButtonEdit()" rel="tooltip" title="Edit Task"  class="btn btn-info btn-simple btn-xs">
+        <button type="button"  rel="tooltip" title="Edit Task" (click)="onClickEdit(transaction)"  class="btn btn-info btn-simple btn-xs">
           <i class="fa fa-edit"></i>
         </button>
         <button type="button" rel="tooltip" title="Remove" (click)="deleteTransaction(transaction)"class="btn btn-danger btn-simple btn-xs">
@@ -39,35 +43,5 @@
 
 </div>
 
-  <popup #popup1>
-    <input type="file" (change)="fileChangeEvent($event)" placeholder="Upload file..." />
-    <button type="button" (click)="upload()">Upload</button>
-  </popup>
 
-  <popup #popup2>
-    <div class="form-group">
-      <label for="usr">Budget:</label>
-      <input type="text" class="form-control" id="usr">
-    </div>
-    <div class="form-group">
-      <label for="pwd">Sous Budget:</label>
-      <input type="password" class="form-control" id="pwd">
-    </div>
-    <div class="form-group">
-      <label for="pwd">Catégorie</label>
-    <div class="dropdown">
-      <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-        Catégorie
-        <span class="caret"></span>
-      </button>
-      <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-        <li><a href="#" title="Lien 1">Lien 1</a></li>
-        <li><a href="#" title="Lien 2">Lien 2</a></li>
-        <li><a href="#" title="Lien 3">Lien 3</a></li>
-        <li role="separator" class="divider"></li>
-        <li><a href="#" title="Lien 4">Lien 4</a></li>
-      </ul>
-    </div>
-    </div>
-  </popup>
 </span>

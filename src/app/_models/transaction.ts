@@ -1,3 +1,4 @@
+import {Budget} from "./budget";
 /**
  * Created by nour on 7/9/17.
  */
@@ -10,7 +11,7 @@ export class Transaction {
   TypePaiement:String;
   Libelle:String;
   Remboursement : Number;
-  budget : string;
+  budget : Budget;
   sousBudget : string;
   CompteBancaire : string;
 }

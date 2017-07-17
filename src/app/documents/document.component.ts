@@ -56,12 +56,7 @@ export class DocumentComponent implements OnInit {
       startOfWeek: 1
     };
   }
- /* public getstartdate(date:string)
-  {
-    this.x=date.split("-")[0];
-    console.log(this.x);
-    return(date)
-  }*/
+
   public getAllExercice()
   {
     this.documentService.getExerciceComptable1().subscribe(
@@ -89,7 +84,9 @@ export class DocumentComponent implements OnInit {
           this.recettes=this.transactions.Recettes;
           console.log(this.transactions);
           console.log(this.recettes);
-        })}
+        })
+      }
+
 
 
 

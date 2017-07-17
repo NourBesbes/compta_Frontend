@@ -38,6 +38,7 @@ import {ConfigService} from "./config/config.service";
 import {BudgetUpdateModal} from "./config/updateform-modal";
 import {BudgetAddModal} from "./config/addform-modal";
 import { RegisterUserComponent } from './register-user/register-user.component';
+import {BudgetModal} from "./transaction/budget-modal";
 
 const appRoutes: Routes = [
   { path: 'admin', component: AdminHomeComponent, canActivate: [AuthGuard] },
@@ -83,7 +84,8 @@ const appRoutes: Routes = [
     UploadModal,
     BudgetUpdateModal,
     BudgetAddModal,
-    RegisterUserComponent
+    RegisterUserComponent,
+    BudgetModal
   ],
   imports: [
     LocalStorageModule.withConfig({
@@ -116,7 +118,7 @@ const appRoutes: Routes = [
     CompanyService,
     ConfigService],
   bootstrap: [AppComponent],
-  entryComponents: [ CustomModal,AddModal,UploadModal,BudgetUpdateModal,BudgetAddModal ]
+  entryComponents: [ CustomModal,AddModal,UploadModal,BudgetUpdateModal,BudgetAddModal,BudgetModal ]
 
 
 })

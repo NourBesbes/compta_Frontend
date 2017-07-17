@@ -45,6 +45,14 @@ export class TransactionService {
       .catch((error:any) => Observable.throw(error.json().error || 'Server error'));
   }
 
+  public addInfo(budget) {
+    console.log("Hello From TransactionService; Méthode AddInfo");
+    console.log(budget);
+    return this.http.post('http://localhost:3000/transaction/addinfo/'+budget.id,budget).
+    map((res) =>res.json());
+
+  }
+
 
 
 }

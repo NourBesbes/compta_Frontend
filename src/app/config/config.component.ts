@@ -89,7 +89,8 @@ export class ConfigComponent {
   }
 
   public getsousBudget()
-  { this.sousBudgets=this.SelectedBudget["sousBudget"];
+  {
+    this.sousBudgets=this.SelectedBudget["sousBudget"];
 
   }
 
@@ -110,7 +111,6 @@ export class ConfigComponent {
           }));
 
           this.sousBudgets = this.SelectedBudget["sousBudget"];
-
 
         })
     }

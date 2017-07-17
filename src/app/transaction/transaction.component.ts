@@ -2,7 +2,6 @@ import {Component, OnInit, trigger, state, style, transition, animate, ViewChild
 import { NavbarTitleService } from '../lbd/services/navbar-title.service';
 import { TransactionService } from '../transaction/transaction .service';
 import { Http } from '@angular/http';
-import {Popup} from 'ng2-opd-popup';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
 import { Transaction } from '../_models/transaction';
@@ -10,10 +9,12 @@ import {NotificationService, NotificationType, NotificationOptions} from '../lbd
 import {UploadModal} from "./upload-modal";
 import {  overlayConfigFactory } from 'angular2-modal';
 import { Modal ,BSModalContext} from 'angular2-modal/plugins/bootstrap';
+import {BudgetModal} from "./budget-modal";
 
 @Component({
   selector: 'app-table',
   templateUrl: 'transaction.component.html',
+  styleUrls: ['./transaction.css'],
   animations: [
     trigger('cardtable1', [
       state('*', style({
@@ -41,9 +42,7 @@ export class TransactionComponent implements OnInit {
   filesToUpload: Array<File>;
   p: number = 1;
 
-
-
-  constructor(private navbarTitleService: NavbarTitleService,public modal: Modal,private popup:Popup,private http: Http,private transactionService: TransactionService
+  constructor(private navbarTitleService: NavbarTitleService,public modal: Modal,private http: Http,private transactionService: TransactionService
     ,private notificationService: NotificationService) {
     this.filesToUpload = [];
   }
@@ -65,34 +64,20 @@ export class TransactionComponent implements OnInit {
           Montant: Montant,
           _id:j._id,
           CompteBancaire:j.CompteBancaire,
-          budget:j.budget
+          budget:j.budget,
+          sousBudget:j.sousBudget,
+          color:true
         };
         self.transactions.push(x)
       })
 
-     // this.transactions = transactions;
+    // this.transactions = transactions;
     });
 
 
   }
   //Upload file
 
-  @ViewChild('popup1') popup1: Popup;
-  ClickButton(){
-    this.popup1.options = {
-      header: "Importer",
-      color: "#5cb85c", // red, blue....
-      widthProsentage: 40, // The with of the popou measured by browser width
-      animationDuration: 1, // in seconds, 0 = no animation
-      showButtons: true, // You can hide this in case you want to use custom buttons
-      confirmBtnContent: "OK", // The text on your confirm button
-      cancleBtnContent: "Cancel", // the text on your cancel button
-      confirmBtnClass: "btn btn-default", // your class for styling the confirm button
-      cancleBtnClass: "btn btn-default", // you class for styling the cancel button
-      animation: "fadeInDown" // 'fadeInLeft', 'fadeInRight', 'fadeInUp', 'bounceIn','bounceInDown'
-    };
-    this.popup1.show(this.popup1.options);
-  }
 
   upload() {
     this.transactionService.makeFileRequest("http://localhost:3000/transaction/upload", [], this.filesToUpload)
@@ -115,12 +100,9 @@ export class TransactionComponent implements OnInit {
           from: 'top',
           align: 'right'
         }));
-        this.transactionService.getAllTransactions().subscribe(transactions => {
-          this.transactions = transactions;
-        });
+        window.location.reload();
 
       });
-
     }
 
   }
@@ -129,26 +111,15 @@ export class TransactionComponent implements OnInit {
     this.filesToUpload = <Array<File>> fileInput.target.files;
   }
 
-//Add budget
-  @ViewChild('popup2') popup2: Popup;
-  ClickButtonEdit(){
-    this.popup2.options = {
-      header: "Edit",
-      color: "#5cb85c", // red, blue....
-      widthProsentage: 40, // The with of the popou measured by browser width
-      animationDuration: 1, // in seconds, 0 = no animation
-      showButtons: true, // You can hide this in case you want to use custom buttons
-      confirmBtnContent: "OK", // The text on your confirm button
-      cancleBtnContent: "Cancel", // the text on your cancel button
-      confirmBtnClass: "btn btn-default", // your class for styling the confirm button
-      cancleBtnClass: "btn btn-default", // you class for styling the cancel button
-      animation: "fadeInDown" // 'fadeInLeft', 'fadeInRight', 'fadeInUp', 'bounceIn','bounceInDown'
-    };
-    this.popup2.show(this.popup2.options);
-  }
+
   onClickUpload() {
     return this.modal.open(UploadModal,  overlayConfigFactory(BSModalContext))
   }
+
+  onClickEdit(transaction:Transaction) {
+    return this.modal.open(BudgetModal,  overlayConfigFactory(transaction, BSModalContext))
+  }
+
 }
 
 
