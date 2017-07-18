@@ -1,15 +1,18 @@
+<accordion>
+  <accordion-group #group1 [isOpen]="true">
+    <div accordion-heading>
+      Journal Comptable
+      <i class="pull-right float-sm-right glyphicon arrows-btn"
+         [ngClass]="{'pe-7s-angle-up': group1?.isOpen, 'pe-7s-angle-down': !group1?.isOpen}" ></i>
+    </div>
 <div class="container-fluid">
   <div class="card" [@cardnotifications]>
-    <div class="header">
-      <h4 class="title">Document Comptable</h4>
-    </div>
     <div class="content">
       <div class="row">
         <div class="col-md-6">
-          <h5>Notifications Style</h5>
           <div class="form-group">
-          <ng-daterangepicker [(ngModel)]="value" [options]="options"></ng-daterangepicker>
-          <button type="button"(click)="getExerciceComptable(value)" class="btn btn-info">Go</button>
+          <ng-daterangepicker [(ngModel)]="value" [options]="options"></ng-daterangepicker><br>
+          <button type="button"(click)="getJournalComptable(value)" class="btn btn-info">Go</button>
           </div>
         </div>
 
@@ -23,10 +26,10 @@
           <tbody>
           <tr  *ngFor="let depense of depenses; let k = index">
           <td>
-            {{depense["libelle"]}}{{depense["valeur"]}}
-          </td>
+            <b>{{depense["libelle"]}}</b><br>{{depense["budget"]}}<br>{{depense["sousBudget"]}}  {{depense["valeur"]}}
+      </td>
             <td *ngIf="recettes[k]">
-              {{recettes[k]["libelle"]}}{{recettes[k]["valeur"]}}
+              <b>{{recettes[k]["libelle"]}}</b><br>{{depense["budget"]}}<br>{{depense["sousBudget"]}}{{recettes[k]["valeur"]}}
             </td>
             <td *ngIf="!recettes[k]">
 
@@ -40,3 +43,37 @@
 </div>
     </div>
   </div>
+  </accordion-group>
+  <accordion-group #group2 [isOpen]="true">
+    <div accordion-heading>
+      Exercice Comptable
+      <i class="pull-right float-xs-right glyphicon arrows-btn" style="font-size: medium;"
+         [ngClass]="{'pe-7s-angle-up': group2?.isOpen, 'pe-7s-angle-down': !group2?.isOpen}"></i>
+    </div>
+    <div class="col-md-6">
+      <div class="form-group">
+        <ng-daterangepicker [(ngModel)]="valueEx" [options]="options"></ng-daterangepicker><br>
+        <button type="button"(click)="getExerciceComptable(valueEx)" class="btn btn-info">Go</button>
+      </div>
+    </div>
+    <table class="table table-hover table-striped">
+      <thead>
+      <tr>
+        <th>Depenses</th>
+        <th>Recettes</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr  *ngFor="let ex of exercices">
+        <td>
+          <p><b>{{ex["Budget"]}}</b></p><p *ngFor="let t of ex.Transactions">{{t["SousBudget"]}} {{t["Depenses"]}}</p>
+
+        </td>
+        <td  >
+          <p><b>{{ex["Budget"]}}</b></p><p *ngFor="let t of ex.Transactions">{{t["SousBudget"]}} {{t["Recette"]}}</p>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </accordion-group>
+</accordion>

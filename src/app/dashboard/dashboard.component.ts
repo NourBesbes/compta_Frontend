@@ -113,7 +113,7 @@ export class DashboardComponent implements OnInit {
       icon: 'pe-7s-home'
     }));
 
-      this.documentService.getExerciceComptable1()
+      this.documentService.getJournalComptable1()
         .subscribe(
           data => {
             this.data=data;

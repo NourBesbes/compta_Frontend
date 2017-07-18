@@ -31,6 +31,7 @@ import {DocumentService} from "./document.service";
   ]
 })
 export class DocumentComponent implements OnInit {
+  //Journal Comptable
   options: NgDateRangePickerOptions;
   public startdate:string ;
   public enddate:string ;
@@ -38,6 +39,14 @@ export class DocumentComponent implements OnInit {
   transactions: any = [];
   depenses: any = [];
   recettes: any = [];
+  //Exercice Comptable
+  optionsEx: NgDateRangePickerOptions;
+  public startdateExComp:string ;
+  public enddateExComp:string ;
+  public modelExComp:any = {startdate:'',enddate:''};
+  public exercices=[];
+
+
 
 
   constructor(private navbarTitleService: NavbarTitleService, private notificationService: NotificationService,
@@ -45,6 +54,7 @@ export class DocumentComponent implements OnInit {
 
   public ngOnInit() {
     this.navbarTitleService.updateTitle('Documents Comptable');
+    this.getAllJournal();
     this.getAllExercice();
     this.options = {
       theme: 'default',
@@ -55,21 +65,29 @@ export class DocumentComponent implements OnInit {
       outputFormat: 'DD/MM/YYYY',
       startOfWeek: 1
     };
+    this.optionsEx = {
+      theme: 'default',
+      range: 'tm',
+      dayNames: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+      presetNames: ['This Month', 'Last Month', 'This Week', 'Last Week', 'This Year', 'Last Year', 'Start', 'End'],
+      dateFormat: 'yMd',
+      outputFormat: 'DD/MM/YYYY',
+      startOfWeek: 1
+    };
   }
 
-  public getAllExercice()
+  public getAllJournal()
   {
-    this.documentService.getExerciceComptable1().subscribe(
+    this.documentService.getJournalComptable1().subscribe(
       data => {
         this.transactions=data ;
         this.depenses=this.transactions.Depenses;
         this.recettes=this.transactions.Recettes;
-        console.log(this.transactions);
-        console.log(this.recettes);
+
       }
     )
   }
-  public getExerciceComptable(value:string) {
+  public getJournalComptable(value:string) {
     this.transactions=[];
     this.depenses=[];
     this.recettes=[];
@@ -85,8 +103,69 @@ export class DocumentComponent implements OnInit {
           console.log(this.transactions);
           console.log(this.recettes);
         })
+  }
+
+
+
+  public sortByProperty(array, propertyName) {
+  return array.sort(function (a, b) {
+    return a[propertyName] - b[propertyName];
+  });
+}
+  public getAllExercice()
+  {
+    var tab=[];
+    var i=0;
+    this.documentService.getExerciceComptable1().subscribe(
+      data => {
+        var transactions = this.sortByProperty(data, "Budget");
+        tab.push(transactions[0]);
+        for (i = 1; i < transactions.length; i++) {
+        if (transactions[i].Budget == transactions[i - 1].Budget) {
+          tab.push(transactions[i]);
+        }
+        else {
+          this.exercices.push({"Budget": transactions[i - 1].Budget, "Transactions": tab});
+          tab = [];
+        };
+          if (i == (transactions.length - 1)) {
+            tab.push(transactions[i]);
+            this.exercices.push({"Budget": transactions[i].Budget, "Transactions": tab});
+          }
       }
 
+      }
+    )
+  }
+
+  public getExerciceComptable(valueEx:string) {
+    this.exercices=[];
+    var tab=[];
+    var i=0;
+    this.startdateExComp=valueEx.split("-")[0];
+    this.enddateExComp=valueEx.split("-")[0];
+    this.modelExComp={"startdate":this.startdate,"enddate":this.enddate};
+    this.documentService.getExerciceComptable(this.modelExComp)
+      .subscribe(
+        data => {
+          var transactions = this.sortByProperty(data, "Budget");
+          tab.push(transactions[0]);
+          for (i = 1; i < transactions.length; i++) {
+            if (transactions[i].Budget == transactions[i - 1].Budget) {
+              tab.push(transactions[i]);
+            }
+            else {
+              this.exercices.push({"Budget": transactions[i - 1].Budget, "Transactions": tab});
+              tab = [];
+            };
+            if (i == (transactions.length - 1)) {
+              tab.push(transactions[i]);
+              this.exercices.push({"Budget": transactions[i].Budget, "Transactions": tab});
+            }
+          }
+
+        })
+  }
 
 
 

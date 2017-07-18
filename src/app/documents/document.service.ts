@@ -14,23 +14,44 @@ export class DocumentService {
   constructor(private http: Http) { }
 
 
-  getExerciceComptable(date:string)
+  getJournalComptable(date:string)
   {   var headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    console.log("Hello From DocumentService; Méthode Ex");
+    console.log("Hello From DocumentService; Méthode get Journal Comptable");
     //noinspection TypeScriptValidateTypes
     return this.http.post('http://localhost:3000/transaction/getExComp',  JSON.stringify(date), {headers: headers}).
     map((res) =>res.json());
   }
 
 
+  getJournalComptable1()
+  {   var headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    console.log("Hello From DocumentService; Méthode get Journal Comptable");
+    //noinspection TypeScriptValidateTypes
+    return this.http.get('http://localhost:3000/transaction/getExComp',{headers: headers}).
+    map((res) =>res.json());
+  }
+
+  getExerciceComptable(date:string)
+  {   var headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    console.log("Hello From DocumentService; Méthode Ex");
+    //noinspection TypeScriptValidateTypes
+    return this.http.post('http://localhost:3000/budget/GetExerciceComptable',  JSON.stringify(date), {headers: headers}).
+    map((res) =>res.json());
+  }
+
   getExerciceComptable1()
   {   var headers = new Headers();
     headers.append('Content-Type', 'application/json');
     console.log("Hello From DocumentService; Méthode Ex");
     //noinspection TypeScriptValidateTypes
-    return this.http.get('http://localhost:3000/transaction/getExComp',{headers: headers}).
+    return this.http.post('http://localhost:3000/budget/GetExerciceComptable', {headers: headers}).
     map((res) =>res.json());
   }
+
+
+
 
 }
