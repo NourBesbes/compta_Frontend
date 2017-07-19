@@ -10,7 +10,8 @@
       <div class="row">
         <button type="button"  (click)="onClickAdd()" class="btn btn-info">Ajouter un budget</button>
       <div class="search" style="margin-left: 70%">
-        <input type="text" class="form-control" id="budget" name="budget" required placeholder="Recherche Budget">
+        <input type="text" [(ngModel)]="searchText"
+               class="form-control" placeholder="Search By Name" />
         <button class="btn  btn-simple pull-right custom-btn"><i class="fa fa-search custom-loop-icon" ></i></button>
       </div>
       </div>
@@ -27,7 +28,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr *ngFor="let budget of budgets| paginate: { itemsPerPage: 4, currentPage: p }">
+        <tr *ngFor="let budget of budgets| budgetpipe: searchText| paginate: { itemsPerPage: 4, currentPage: p }">
           <td>{{budget.name}}</td>
           <td class="td-actions text-center">
             <button title="Edit Task" (click)="onClickUpdate(budget)" class="btn btn-info btn-simple btn-sm arrows-btn">

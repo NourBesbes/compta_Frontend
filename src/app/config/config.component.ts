@@ -9,17 +9,20 @@ import {Budget} from "../_models/budget";
 import {BudgetUpdateModal} from "./updateform-modal";
 import {BSModalContext} from "angular2-modal/plugins/bootstrap";
 import {BudgetAddModal} from "./addform-modal";
+import {BudgetPipe} from "./budget.pipe";
 
 
 @Component({
   selector: 'ConfigComponent',
   templateUrl: './config.component.html',
+  pipes: [BudgetPipe]  ,
   styleUrls: ['./config.component.css']
 })
 export class ConfigComponent {
 
   public budgets :any [] ;
   public sousBudgets :any [] ;
+  public searchText :string ;
 
   sousBudgetmodel:any={sousBudget:'', _id:''}
 

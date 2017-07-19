@@ -1,4 +1,4 @@
-import {Component, OnInit, trigger, transition, style, animate,ViewChild,Injectable} from '@angular/core';
+import {Component, OnInit, trigger, transition, style, animate} from '@angular/core';
 import {NotificationService, NotificationType, NotificationOptions} from '../lbd/services/notification.service';
 import { NavbarTitleService } from '../lbd/services/navbar-title.service';
 import {BanqueService} from "./banque.service";
@@ -9,10 +9,11 @@ import { Modal ,BSModalContext} from 'angular2-modal/plugins/bootstrap';
 import {CustomModal} from './updateform-modal';
 import {AddModal} from './addform-modal';
 import {  overlayConfigFactory } from 'angular2-modal';
-
+import { BanquePipe } from './banque.pipe';
 @Component({
   selector: 'app-typography',
   templateUrl: 'banque.component.html',
+  pipes: [BanquePipe]  ,
   styleUrls: ['banque.component.css'],
   animations: [
     trigger('cardtypography', [
@@ -35,9 +36,11 @@ import {  overlayConfigFactory } from 'angular2-modal';
     ])
   ]
 })
+
 export class BanqueComponent implements OnInit {
   loading = false;
   banques: Banque[];
+  searchText:string;
   model:any = {name:'',swift:'',IBAN:'',Banque:'',company:''};
   p: number = 1;
 
@@ -54,6 +57,7 @@ export class BanqueComponent implements OnInit {
     });
 
   }
+
 
 
  public deleteBanque(banque:Banque){
