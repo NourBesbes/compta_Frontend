@@ -53,8 +53,9 @@ export class TransactionComponent implements OnInit {
   public ngOnInit() {
     this.navbarTitleService.updateTitle('Transactions');
    var self = this ;
+    var user=JSON.parse(localStorage.getItem("currentUser"));
     // Retrieve transactions from the API
-    this.transactionService.getAllTransactions().subscribe(transactions => {
+    this.transactionService.getAllTransactions(user.company).subscribe(transactions => {
 
       transactions.forEach(function (j) {
         var x ;
@@ -82,12 +83,10 @@ export class TransactionComponent implements OnInit {
   //Upload file
 
 
-  upload() {
-    this.transactionService.makeFileRequest("http://localhost:3000/transaction/upload", [], this.filesToUpload)
-      .then((result) => console.log(result));
-
-
-  }
+ // upload() {
+    //this.transactionService.makeFileRequest("http://localhost:3000/transaction/upload", [], this.filesToUpload)
+    //  .then((result) => console.log(result));
+//}
   public deleteTransaction(transaction:Transaction){
     if (confirm('Are you sure you want to delete ' + transaction.Libelle)) {
 

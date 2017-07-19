@@ -69,12 +69,14 @@ const appRoutes: Routes = [
 
 @NgModule({
   declarations: [
-    AppComponent,
     BanquePipe,
+    TransactionPipe,
+    AppComponent,
+
     FooterLayoutComponent,
     DashboardComponent,
     UserComponent,
-    TransactionPipe,
+
     TransactionComponent,
     BanqueComponent,
     AdminComponent,
@@ -103,6 +105,7 @@ const appRoutes: Routes = [
       prefix: 'my-app',
       storageType: 'localStorage'
     }),
+
     BrowserModule,
     FormsModule,
     HttpModule,
@@ -117,6 +120,8 @@ const appRoutes: Routes = [
     NgDateRangePickerModule
 ],
   providers: [
+    BanquePipe,
+    TransactionPipe,
     TransactionService,
     AuthGuard,
     AuthAdmin,
