@@ -4,7 +4,7 @@ import { LocalStorageService } from 'angular-2-local-storage';
 import {NotificationService, NotificationType, NotificationOptions} from '../lbd/services/notification.service';
 import { UserService } from '../_services/index';
 @Injectable()
-export class AuthAdmin implements CanActivate {
+export class AuthSuperadmin implements CanActivate {
   public currentUser:any;
   public user:any;
 
@@ -17,15 +17,15 @@ export class AuthAdmin implements CanActivate {
     this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
 
    // this.userService.getByUsername(this.currentUser.username).subscribe((data) => { this.user = data;
-      if (this.currentUser.role=="admin" || this.currentUser.role=="superAdmin") {
+      if (this.currentUser.role=="superAdmin") {
         // logged in so return true
         return true;
       }
     //});
-
+    
     // not logged in so redirect to login page with the return url
     this.notificationService.notify(new NotificationOptions({
-      message: 'Vous nêtes pas admin',
+      message: 'Vous nêtes pas super admin',
       icon: 'pe-7s-delete-user',
       type: NotificationType.Danger,
       from: 'top',

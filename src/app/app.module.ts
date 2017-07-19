@@ -16,7 +16,7 @@ import { ConfigComponent } from './config/config.component';
 import { DocumentComponent } from './documents/document.component'
 import {TransactionService} from './transaction/transaction .service';
 import { AlertComponent } from './_directives/index';
-import { AuthGuard,AuthCompany,AuthAdmin } from './_guards/index';
+import { AuthGuard,AuthCompany,AuthAdmin,AuthSuperadmin } from './_guards/index';
 import { AlertService, AuthenticationService, UserService ,CompanyService} from './_services/index';
 import { HomeComponent } from './home/index';
 import { LoginComponent } from './login/index';
@@ -39,9 +39,10 @@ import {BudgetUpdateModal} from "./config/updateform-modal";
 import {BudgetAddModal} from "./config/addform-modal";
 import { RegisterUserComponent } from './register-user/register-user.component';
 import {BudgetModal} from "./transaction/budget-modal";
+import { SuperAdminComponent } from './super-admin/super-admin.component';
 
 const appRoutes: Routes = [
-  { path: 'admin', component: AdminHomeComponent, canActivate: [AuthGuard] },
+  { path: 'admin', component: SuperAdminComponent, canActivate: [AuthSuperadmin] },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent,canActivate: [AuthCompany] },
   { path: 'registerC', component: RegisterCompanyComponent },
@@ -85,7 +86,8 @@ const appRoutes: Routes = [
     BudgetUpdateModal,
     BudgetAddModal,
     RegisterUserComponent,
-    BudgetModal
+    BudgetModal,
+    SuperAdminComponent
   ],
   imports: [
     LocalStorageModule.withConfig({
@@ -110,6 +112,7 @@ const appRoutes: Routes = [
     AuthGuard,
     AuthAdmin,
     AuthCompany,
+    AuthSuperadmin,
     AlertService,
     AuthenticationService,
     UserService,

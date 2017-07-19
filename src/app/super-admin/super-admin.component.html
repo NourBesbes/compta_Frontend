@@ -1,0 +1,13 @@
+<div class="col-md-6 col-md-offset-3">
+  <h1>Hi Super Admin!</h1>
+
+  <h3>All registered companies:</h3>
+  <ul>
+    <li *ngFor="let companie of companies">
+      {{companie.name}}
+      <a (click)="deleteCompani(companie._id)">Delete</a>
+      <a (click)="viewCompani(companie._id)">View</a>
+    </li>
+  </ul>
+
+</div>

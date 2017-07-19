@@ -2,6 +2,7 @@ import {Component, OnInit, trigger, state, style, transition, animate} from '@an
 import { NavbarTitleService } from '../lbd/services/navbar-title.service';
 import { UserService } from '../_services/index';
 import {User} from "../_models/user";
+import {CompanyService} from "../_services/company.service";
 @Component({
   selector: 'app-user',
   templateUrl: './user.component.html',
@@ -48,24 +49,21 @@ import {User} from "../_models/user";
   ]
 })
 export class UserComponent implements OnInit {
-  public formData: any;
 
   public currentUser:any;
   public user:any;
   public  user1 ={"username":"","password":"","email":"", "first_name":"","last_name":"","image":"","company":"","name":""};
   model:any = {_id:'',username:'',password:'',imagePath:'',last_name:'',first_name:'',email:'',company:'',role:''};
-  constructor(private navbarTitleService: NavbarTitleService,private userService:UserService) { }
+  constructor(private navbarTitleService: NavbarTitleService,private userService:UserService,private companyService:CompanyService) { }
 
   public ngOnInit() {
     this.navbarTitleService.updateTitle('User Profile');
-  this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
-
+    this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
     this.getCurrentUser();
 
   }
   public onSubmit() {
     console.log('Submitting values', this.user1);
-
      this.userService.update(this.user1).subscribe((data) => { this.user = data;
        console.log('user', this.user);
      this.getCurrentUser();
@@ -74,17 +72,22 @@ export class UserComponent implements OnInit {
   public getCurrentUser()
   {
     this.userService.getByUsername(this.currentUser.username).subscribe((data) => { this.user = data;
-      console.log(this.user);
+
         this.user1.username=this.user.username;
         this.user1.password=this.user.password;
         this.user1.email=this.user.email;
         this.user1.first_name=this.user.first_name;
         this.user1.last_name=this.user.last_name;
         this.user1.image=this.user.imagePath;
-        this.user1.company=this.user.company;
-        this.user1.name=this.user.company.name;
-      console.log(this.user1);
- });
+        this.user1.company=this.currentUser.company;
+      if(this.currentUser.role=="superAdmin")
+      {
+        this.companyService.getCompany(this.currentUser.company).subscribe(data => this.user1.name=data.name)
 
+      }
+      else
+        this.user1.name=this.user.company.name;
+        console.log(this.user1);
+ });
   }
 }

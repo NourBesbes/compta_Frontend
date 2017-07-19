@@ -26,7 +26,7 @@ public bool:boolean=true;
       { type: NavItemType.Sidebar, title: 'Documents Comptables', routerLink: 'doc', iconClass: 'pe-7s-copy-file' },
       { type: NavItemType.NavbarLeft, title: 'Dashboard', iconClass: 'fa fa-dashboard' },
       { type: NavItemType.Sidebar, title: 'Administration', routerLink: 'icons', iconClass: 'pe-7s-lock' },
-
+      { type: NavItemType.Sidebar, title: 'Super Administration', routerLink: 'admin', iconClass: 'pe-7s-lock' },
 
 
      // { type: NavItemType.NavbarRight, title: 'Account' ,routerLink: 'user' },

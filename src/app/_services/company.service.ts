@@ -31,15 +31,13 @@ deleteCompany(id:string)
   map((response: Response) =>response.json());
 }
 
-  getCompany(companyId : string):Promise<Company>
+  getCompany(companyId : string)
   {
     const url=`${this.get_url}/${companyId}`;
     console.log(url);
     return this.http.
     get(url).
-    toPromise().
-    then(response => response.json()).
-    then(company => new Company(company));
+    map(response => response.json());
   }
 
 
