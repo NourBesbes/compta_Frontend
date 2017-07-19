@@ -4,7 +4,8 @@
   <div class="pull-right">
   <div class="col-lg-10">
     <div class="input-group">
-      <input type="text" class="form-control" placeholder="Search for...">
+      <input type="text" [(ngModel)]="searchText"
+             class="form-control" placeholder="Search By Name" />
       <span class="input-group-btn">
         <button class="btn btn-secondary" type="button">Go!</button>
       </span>
@@ -25,7 +26,7 @@
       </tr>
       </thead>
       <tbody>
-      <tr *ngFor="let banque of banques| paginate: { itemsPerPage: 5, currentPage: p }">
+      <tr *ngFor="let banque of banques| banquepipe: searchText|paginate: { itemsPerPage: 5, currentPage: p }">
         <td>{{banque.name}}</td>
         <td>{{banque.swift}}</td>
         <td>{{banque.IBAN}}</td>

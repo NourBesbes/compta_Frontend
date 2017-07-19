@@ -10,10 +10,12 @@ import {UploadModal} from "./upload-modal";
 import {  overlayConfigFactory } from 'angular2-modal';
 import { Modal ,BSModalContext} from 'angular2-modal/plugins/bootstrap';
 import {BudgetModal} from "./budget-modal";
+import {TransactionPipe} from "./transaction.pipe";
 
 @Component({
   selector: 'app-table',
   templateUrl: 'transaction.component.html',
+  pipes:[TransactionPipe],
   styleUrls: ['./transaction.css'],
   animations: [
     trigger('cardtable1', [
@@ -41,6 +43,7 @@ export class TransactionComponent implements OnInit {
   transactions: any = [];
   filesToUpload: Array<File>;
   p: number = 1;
+  public searchText:string;
 
   constructor(private navbarTitleService: NavbarTitleService,public modal: Modal,private http: Http,private transactionService: TransactionService
     ,private notificationService: NotificationService) {

@@ -1,6 +1,16 @@
 <span defaultOverlayTarget xmlns:color="http://www.w3.org/1999/xhtml">
-  <div class="row">
-    <button type="button"(click)="onClickUpload()" class="btn btn-info">Importer</button>
+           <div align="right">
+             <button type="button"(click)="onClickUpload()" class="btn btn-info">Importer</button></div>
+  <div class="row" >
+     <div class="col-lg-4">
+    <div class="input-group">
+      <input type="text" [(ngModel)]="searchText"
+             class="form-control" placeholder="Search By Libelle" />
+      <span class="input-group-btn">
+        <button class="btn btn-secondary" type="button">Go!</button>
+      </span>
+    </div>
+     </div>
 
   <div class="col-md-12" [@cardtable1]>
     <div class="content table-responsive table-full-width">
@@ -15,7 +25,7 @@
      </tr>
     </thead>
     <tbody>
-    <tr *ngFor="let transaction of transactions| paginate: { itemsPerPage: 8, currentPage: p }"
+    <tr *ngFor="let transaction of transactions| transactionpipe: searchText| paginate: { itemsPerPage: 8, currentPage: p }"
     >
       <td>{{transaction.Date}}</td>
       <td>{{transaction.Libelle}}</td>

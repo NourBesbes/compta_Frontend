@@ -41,6 +41,9 @@ import { RegisterUserComponent } from './register-user/register-user.component';
 import {BudgetModal} from "./transaction/budget-modal";
 import { SuperAdminComponent } from './super-admin/super-admin.component';
 import {UpdateAdminModal} from "./admin/updateform-modal";
+import {BanquePipe} from "./banque/banque.pipe";
+import {BudgetPipe} from "./config/budget.pipe";
+import {TransactionPipe} from "./transaction/transaction.pipe";
 
 const appRoutes: Routes = [
   { path: 'superadmin', component: SuperAdminComponent, canActivate: [AuthSuperadmin] },
@@ -67,12 +70,15 @@ const appRoutes: Routes = [
 @NgModule({
   declarations: [
     AppComponent,
+    BanquePipe,
     FooterLayoutComponent,
     DashboardComponent,
     UserComponent,
+    TransactionPipe,
     TransactionComponent,
     BanqueComponent,
     AdminComponent,
+    BudgetPipe,
     ConfigComponent,
     AlertComponent,
     HomeComponent,
@@ -89,7 +95,8 @@ const appRoutes: Routes = [
     RegisterUserComponent,
     BudgetModal,
     SuperAdminComponent,
-    UpdateAdminModal
+    UpdateAdminModal,
+
   ],
   imports: [
     LocalStorageModule.withConfig({
