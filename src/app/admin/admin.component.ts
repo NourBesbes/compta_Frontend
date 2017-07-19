@@ -3,11 +3,15 @@ import { NavbarTitleService } from '../lbd/services/navbar-title.service';
 import {UserService} from "../_services/user.service";
 import {NotificationService, NotificationType, NotificationOptions} from '../lbd/services/notification.service';
 import {CompanyService} from "../_services/company.service";
+import {User} from "../_models/user";
+import {UpdateAdminModal} from "./updateform-modal";
+import {overlayConfigFactory, Modal} from "angular2-modal";
+import {BSModalContext} from "angular2-modal/plugins/bootstrap";
 
 @Component({
   selector: 'app-icons',
-  templateUrl: './icons.component.html',
-  styleUrls: ['./icons.component.css'],
+  templateUrl: 'admin.component.html',
+  styleUrls: ['admin.component.css'],
   animations: [
     trigger('cardicons', [
       state('*', style({
@@ -30,7 +34,7 @@ import {CompanyService} from "../_services/company.service";
     ])
   ]
 })
-export class IconsComponent implements OnInit {
+export class AdminComponent implements OnInit {
 model:any={to:'',text:''};
   public iconClasses: string[];
 users:any[];
@@ -38,7 +42,7 @@ users:any[];
   constructor(private navbarTitleService: NavbarTitleService,
               private userService:UserService,
               private notificationService: NotificationService,
-              private companyService:CompanyService) { }
+              private companyService:CompanyService,public modal: Modal) { }
 
   deleteUser(user:any)
   {
@@ -121,6 +125,12 @@ users:any[];
   console.log(data);
 
     });
+  }
+  public onClickUpdate(user:User) {
+    return this.modal.open(UpdateAdminModal, overlayConfigFactory(user, BSModalContext)).then(res =>
+
+      console.log(res)
+    )
   }
 
   ngOnInit() {
