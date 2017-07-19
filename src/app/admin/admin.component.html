@@ -11,6 +11,12 @@
         <button class="btn btn-secondary" (click)="SendMail()" type="button">Send!</button>
       </span>
         </div>
+        <div class="input-group">
+          <input type="text" class="form-control" [(ngModel)]="searchText"  placeholder="search by email">
+      <span class="input-group-btn">
+        <button class="btn btn-secondary"  type="button">Search!</button>
+      </span>
+        </div>
       </div>
     </div>
   </div>
@@ -27,7 +33,7 @@
       </tr>
       </thead>
       <tbody>
-      <tr   *ngFor="let user of users| paginate: { itemsPerPage: 10, currentPage: p }">
+      <tr   *ngFor="let user of users| userpipe: searchText| paginate: { itemsPerPage: 10, currentPage: p }">
         <td   (click)="Change()">{{user.first_name}}</td>
         <td (click)="Change()">{{user.last_name}}</td>
         <td (click)="Change()">{{user.email}}</td>

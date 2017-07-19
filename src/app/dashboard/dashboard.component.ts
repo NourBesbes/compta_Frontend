@@ -8,6 +8,7 @@ import {DocumentService} from "../documents/document.service";
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
+  styleUrls: ['./dashboard.css'],
   animations: [
     trigger('cardemail', [
       state('*', style({

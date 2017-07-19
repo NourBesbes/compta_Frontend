@@ -7,10 +7,12 @@ import {User} from "../_models/user";
 import {UpdateAdminModal} from "./updateform-modal";
 import {overlayConfigFactory, Modal} from "angular2-modal";
 import {BSModalContext} from "angular2-modal/plugins/bootstrap";
+import {UserPipe} from "./admin.pipe";
 
 @Component({
   selector: 'app-icons',
   templateUrl: 'admin.component.html',
+  pipes:[UserPipe],
   styleUrls: ['admin.component.css'],
   animations: [
     trigger('cardicons', [
