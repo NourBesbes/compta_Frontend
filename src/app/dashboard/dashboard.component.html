@@ -2,35 +2,16 @@
 
 <div class="container-fluid">
 
-  <div class="row">
-    <div class="col-md-4" [@cardemail]>
-      <lbd-chart
-        [title]="'Email Statistics'"
-        [subtitle]="'Last Campaign Performance'"
-        [chartClass]="'ct-perfect-fourth'"
-        [chartType]="emailChartType"
-        [chartData]="emailChartData"
-        [legendItems]="emailChartLegendItems"
-        [footerIconClass]="'fa fa-clock-o'"
-        [footerText]="'Campaign sent 2 days ago'">
-      </lbd-chart>
-    </div>
 
-    <div class="col-md-8" [@carduser]>
-      <lbd-chart
-        [title]="'Users Behavior'"
-        [subtitle]="'24 Hours performance'"
-        [chartType]="hoursChartType"
-        [chartData]="hoursChartData"
-        [chartOptions]="hoursChartOptions"
-        [chartResponsive]="hoursChartResponsive"
-        [legendItems]="hoursChartLegendItems"
-        [footerIconClass]="'fa fa-history'"
-        [footerText]="'Updated 3 minutes ago'">
-      </lbd-chart>
+  <div class="demo">
+    <h2 class="primary">{{title}}</h2>
+    <div class="mother">
+      <div class="achild" style="background-color: #4fceb7">Users</div>
+      <div class="achild" style="background-color: #48ce8a">Transactions</div>
+      <div class="achild" style="background-color: #c6ce25">Banques</div>
+      <div class="achild" style="background-color: #d58a3b">Budgets</div>
     </div>
   </div>
-
 
 
 </div>

@@ -44,6 +44,7 @@ import {UpdateAdminModal} from "./admin/updateform-modal";
 import {BanquePipe} from "./banque/banque.pipe";
 import {BudgetPipe} from "./config/budget.pipe";
 import {TransactionPipe} from "./transaction/transaction.pipe";
+import {UserPipe} from "./admin/admin.pipe";
 
 const appRoutes: Routes = [
   { path: 'superadmin', component: SuperAdminComponent, canActivate: [AuthSuperadmin] },
@@ -71,10 +72,13 @@ const appRoutes: Routes = [
   declarations: [
     AppComponent,
     BanquePipe,
+    UserPipe,
+    TransactionPipe,
+
+
     FooterLayoutComponent,
     DashboardComponent,
     UserComponent,
-    TransactionPipe,
     TransactionComponent,
     BanqueComponent,
     AdminComponent,

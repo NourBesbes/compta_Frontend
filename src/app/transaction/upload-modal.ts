@@ -67,12 +67,15 @@ export class CustomModalContext extends BSModalContext {
 export class UploadModal implements ModalComponent<CustomModalContext> {
   context: CustomModalContext;
   filesToUpload: Array<File>;
+  user :any ;
 
   constructor(public dialog: DialogRef<CustomModalContext>,private notificationService: NotificationService,private transactionService: TransactionService,public modal: Modal) {
     this.context = dialog.context;
   }
   public ngOnInit() {
     console.log("hello from upload model");
+    this.user=JSON.parse(localStorage.getItem("currentUser"));
+
 
   }
 
@@ -81,7 +84,7 @@ export class UploadModal implements ModalComponent<CustomModalContext> {
   }
   upload() {
     const type = Math.floor((Math.random() * 4) + 1);
-    this.transactionService.makeFileRequest("http://localhost:3000/transaction/upload", [], this.filesToUpload);
+    this.transactionService.makeFileRequest("http://localhost:3000/transaction/upload/"+this.user.company, [], this.filesToUpload);
     this.dialog.dismiss();
     this.notificationService.notify(new NotificationOptions({
       message: 'Votre fichier - a été importé',
