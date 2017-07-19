@@ -14,7 +14,7 @@ import {Company} from "../_models/company";
 export class RegisterUserComponent implements OnInit {
   loading = false;
   registerC=false;
-
+  filesToUpload: Array<File>;
   constructor(
     private localStorage: LocalStorageService,
     private route: ActivatedRoute,
@@ -22,7 +22,7 @@ export class RegisterUserComponent implements OnInit {
     private userService: UserService,
     private alertService: AlertService,
     private companyService: CompanyService,
-    private changeDetectorRef: ChangeDetectorRef) { }
+    private changeDetectorRef: ChangeDetectorRef) { this.filesToUpload = [];}
 
   model:any = {username:'',password:'',imagePath:'',lastName:'',firstName:'',email:'',company:'',role:''};
 company:Company;
@@ -41,18 +41,53 @@ company:Company;
 
   }
 
-
-
-  sleep(seconds)
-  {
-    var e = new Date().getTime() + (seconds * 1000);
-    while (new Date().getTime() <= e) {}
+  upload() {
+    this.makeFileRequest("http://localhost:3000/user/upload", [], this.filesToUpload).then((result) => {
+      console.log(result);
+    }, (error) => {
+      console.error(error);
+    });
   }
+
+  fileChangeEvent(fileInput: any){
+    this.filesToUpload = <Array<File>> fileInput.target.files;
+  }
+
+  makeFileRequest(url: string, params: Array<string>, files: Array<File>) {
+    return new Promise((resolve, reject) => {
+      var formData: any = new FormData();
+      var xhr = new XMLHttpRequest();
+      for(var i = 0; i < files.length; i++) {
+        formData.append("img", files[i], files[i].name);
+      }
+      xhr.onreadystatechange = function () {
+        if (xhr.readyState == 4) {
+          if (xhr.status == 200) {
+            resolve(JSON.parse(xhr.response));
+            var data=xhr.responseText;
+
+            localStorage.setItem("image",data);
+
+          } else {
+            reject(JSON.parse(xhr.response));
+          }
+        }
+      }
+      xhr.open("POST", url, true);
+      xhr.send(formData);
+
+    });
+  }
+
+
   register() {
     var compani = JSON.parse(localStorage.getItem("currentCompany"));
 
           this.model.company=compani._id;
           this.model.role="user";
+    var json= JSON.parse(localStorage.getItem("image"));
+    this.model.imagePath=json.lien;
+    localStorage.removeItem("image");
           this.userService.create(this.model)
             .subscribe(
               data => {
@@ -118,7 +153,7 @@ company:Company;
     }
   }
 
-  resize(img, MAX_WIDTH:number, MAX_HEIGHT:number, callback){
+  resize(img, MAX_WIDTH:number, MAX_HEIGHT:number, callback) {
 // This will wait until the img is loaded before calling this function
     return img.onload = () => {
 // Get the images current width and height

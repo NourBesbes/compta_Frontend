@@ -64,9 +64,9 @@ export class UserComponent implements OnInit {
   }
   public onSubmit() {
     console.log('Submitting values', this.user1);
-     this.userService.update(this.user1).subscribe((data) => { this.user = data;
+     this.userService.update(this.user1).subscribe((data) => { this.user1 = data;
        console.log('user', this.user);
-     this.getCurrentUser();
+   this.getCurrentUser();
      });
   }
   public getCurrentUser()

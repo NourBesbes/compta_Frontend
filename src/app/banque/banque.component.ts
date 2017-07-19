@@ -38,7 +38,7 @@ import {  overlayConfigFactory } from 'angular2-modal';
 export class BanqueComponent implements OnInit {
   loading = false;
   banques: Banque[];
-  model:any = {name:'',swift:'',IBAN:'',Banque:''};
+  model:any = {name:'',swift:'',IBAN:'',Banque:'',company:''};
   p: number = 1;
 
   constructor(private navbarTitleService: NavbarTitleService,private http: Http,private banqueService: BanqueService,

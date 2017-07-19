@@ -1,7 +1,7 @@
 ﻿<div class="col-md-6 col-md-offset-3">
     <h2>Register</h2>
     <form name="form" (ngSubmit)="f.form.valid && register()" #f="ngForm" novalidate>
-      
+
         <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !username.valid }">
             <label for="username">Username</label>
             <input type="text" class="form-control" name="username" [(ngModel)]="model.username" #username="ngModel" required />
@@ -29,13 +29,18 @@
             <input type="text" class="form-control" name="email" [(ngModel)]="model.email" #email="ngModel" required />
             <div *ngIf="f.submitted && !email.valid" class="help-block">Email is required</div>
         </div>
-
-        <div class="form-group">         
+<!--
+        <div class="form-group">
             <label for="imagePath">Image</label>
-            <input type="file" name="student_img" required (change)="fileChange(input)" #input />  
+            <input type="file" name="student_img" required (change)="fileChange(input)" #input />
             <img [attr.src]='file_srcs[0]' alt=""/>
-        </div>
-      
+        </div>-->
+      <div class="form-group">
+      <input type="file" (change)="fileChangeEvent($event)" placeholder="Upload file..." />
+      <button type="button" (click)="upload()">Upload</button>
+      </div>
+
+
         <div class="form-group">
             <button [disabled]="loading" class="btn btn-primary">Register</button>
 

@@ -12,7 +12,7 @@ import 'rxjs/add/operator/catch';
 @Injectable()
 export class BanqueService {
 
-  constructor(private http: Http,) { }
+  constructor(private http: Http) { }
 
   getAll() {
     return this.http.get('http://localhost:3000/banque/listall')

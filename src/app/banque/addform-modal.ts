@@ -110,6 +110,7 @@ export class AddModal implements ModalComponent<CustomModalContext>,OnInit {
     this.model._id=this.context._id ;
     this.model.Banque=this.context.Banque ;
     this.model.IBAN=this.context.IBAN ;
+
   }
 
   add() {
