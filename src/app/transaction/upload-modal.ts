@@ -80,8 +80,10 @@ export class UploadModal implements ModalComponent<CustomModalContext> {
     this.filesToUpload = <Array<File>> fileInput.target.files;
   }
   upload() {
+    var user=JSON.parse(localStorage.getItem("currentUser"));
+    var json:any={"":"","company":user.company}
     const type = Math.floor((Math.random() * 4) + 1);
-    this.transactionService.makeFileRequest("http://localhost:3000/transaction/upload", [], this.filesToUpload);
+    this.transactionService.makeFileRequest("http://localhost:3000/transaction/upload", json, this.filesToUpload);
     this.dialog.dismiss();
     this.notificationService.notify(new NotificationOptions({
       message: 'Votre fichier - a été importé',

@@ -19,13 +19,19 @@ export class BanqueService {
       .map(res => res.json());
   }
 
+
+  getbycompany(id:string){
+    return this.http.get(`http://localhost:3000/banque/getbycompany/${id}`)
+      .map((res) => res.json())
+  }
+
   add(banque)
   {   var headers = new Headers();
     headers.append('Content-Type', 'application/json');
     console.log("Hello From BanqueService; Méthode Add");
     console.log(banque);
     //noinspection TypeScriptValidateTypes
-    return this.http.post('http://localhost:3000/banque/add',  JSON.stringify(banque), {headers: headers}).
+    return this.http.post('http://localhost:3000/banque/add',  banque, {headers: headers}).
     map((res) =>res.json());
   }
 

@@ -47,8 +47,9 @@ export class BanqueComponent implements OnInit {
 
   public ngOnInit() {
     this.navbarTitleService.updateTitle('Banque');
+    var user=JSON.parse(localStorage.getItem("currentUser"));
     // Retrieve banks from the API
-    this.banqueService.getAll().subscribe(banques => {
+    this.banqueService.getbycompany(user.company).subscribe(banques => {
       this.banques = banques;
     });
 

@@ -14,6 +14,7 @@ export class CustomModalContext extends BSModalContext {
   public swift: string;
   public IBAN: string;
   public Banque: string;
+
 }
 
 /**
@@ -96,7 +97,7 @@ export class CustomModalContext extends BSModalContext {
 })
 export class AddModal implements ModalComponent<CustomModalContext>,OnInit {
   context: CustomModalContext;
-  model:any = {name:"",swift:'',IBAN:'',Banque:''};
+  model:any = {name:"",swift:'',IBAN:'',Banque:'',company:''};
   loading = false;
 
 
@@ -105,11 +106,14 @@ export class AddModal implements ModalComponent<CustomModalContext>,OnInit {
   }
   public ngOnInit() {
     console.log("hello from add model"+this.context);
+    var user=JSON.parse(localStorage.getItem("currentUser"));
+   
     this.model.name=this.context.name ;
     this.model.swift=this.context.swift ;
     this.model._id=this.context._id ;
     this.model.Banque=this.context.Banque ;
     this.model.IBAN=this.context.IBAN ;
+    this.model.company= user.company;
 
   }
 

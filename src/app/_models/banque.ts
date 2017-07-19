@@ -7,4 +7,5 @@ export class Banque {
   swift: string;
   IBAN: string;
   Banque: string;
+  company:string;
 }
