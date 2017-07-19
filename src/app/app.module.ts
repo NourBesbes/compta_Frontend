@@ -11,7 +11,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { UserComponent } from './user/user.component';
 import { TransactionComponent } from './transaction/transaction.component';
 import { BanqueComponent } from './banque/banque.component';
-import { IconsComponent } from './icons/icons.component';
+import {AdminComponent} from './admin/admin.component';
 import { ConfigComponent } from './config/config.component';
 import { DocumentComponent } from './documents/document.component'
 import {TransactionService} from './transaction/transaction .service';
@@ -40,9 +40,10 @@ import {BudgetAddModal} from "./config/addform-modal";
 import { RegisterUserComponent } from './register-user/register-user.component';
 import {BudgetModal} from "./transaction/budget-modal";
 import { SuperAdminComponent } from './super-admin/super-admin.component';
+import {UpdateAdminModal} from "./admin/updateform-modal";
 
 const appRoutes: Routes = [
-  { path: 'admin', component: SuperAdminComponent, canActivate: [AuthSuperadmin] },
+  { path: 'superadmin', component: SuperAdminComponent, canActivate: [AuthSuperadmin] },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent,canActivate: [AuthCompany] },
   { path: 'registerC', component: RegisterCompanyComponent },
@@ -53,7 +54,7 @@ const appRoutes: Routes = [
       { path: 'user', component: UserComponent },
       { path: 'transaction', component: TransactionComponent },
       { path: 'banque', component: BanqueComponent },
-      { path: 'icons', component: IconsComponent,canActivate: [AuthAdmin] },
+      { path: 'admin', component: AdminComponent,canActivate: [AuthAdmin] },
       { path: 'doc', component: DocumentComponent },
       { path: 'config', component: ConfigComponent },
       { path: '**', redirectTo: 'dashboard' }
@@ -71,7 +72,7 @@ const appRoutes: Routes = [
     UserComponent,
     TransactionComponent,
     BanqueComponent,
-    IconsComponent,
+    AdminComponent,
     ConfigComponent,
     AlertComponent,
     HomeComponent,
@@ -87,7 +88,8 @@ const appRoutes: Routes = [
     BudgetAddModal,
     RegisterUserComponent,
     BudgetModal,
-    SuperAdminComponent
+    SuperAdminComponent,
+    UpdateAdminModal
   ],
   imports: [
     LocalStorageModule.withConfig({
@@ -121,7 +123,7 @@ const appRoutes: Routes = [
     CompanyService,
     ConfigService],
   bootstrap: [AppComponent],
-  entryComponents: [ CustomModal,AddModal,UploadModal,BudgetUpdateModal,BudgetAddModal,BudgetModal ]
+  entryComponents: [ CustomModal,AddModal,UploadModal,BudgetUpdateModal,BudgetAddModal,BudgetModal,UpdateAdminModal]
 
 
 })
