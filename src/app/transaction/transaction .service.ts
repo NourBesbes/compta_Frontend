@@ -15,7 +15,6 @@ export class TransactionService {
 
   // Get all transactions from the API
   getAllTransactions(id:string) {
-
     return this.http.get('http://localhost:3000/transaction/getbycompany/'+id)
       .map(res => res.json());
   }

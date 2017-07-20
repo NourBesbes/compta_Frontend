@@ -78,7 +78,9 @@ export class DocumentComponent implements OnInit {
 
   public getAllJournal()
   {
-    this.documentService.getJournalComptable1().subscribe(
+    var user=JSON.parse(localStorage.getItem("currentUser"));
+
+    this.documentService.getJournalComptable1(user.company).subscribe(
       data => {
         this.transactions=data ;
         this.depenses=this.transactions.Depenses;
@@ -88,13 +90,14 @@ export class DocumentComponent implements OnInit {
     )
   }
   public getJournalComptable(value:string) {
+    var user=JSON.parse(localStorage.getItem("currentUser"));
     this.transactions=[];
     this.depenses=[];
     this.recettes=[];
     this.startdate=value.split("-")[0];
     this.enddate=value.split("-")[0];
     this.model={"startdate":this.startdate,"enddate":this.enddate};
-    this.documentService.getExerciceComptable(this.model)
+    this.documentService.getExerciceComptable(this.model,user.company)
       .subscribe(
         data => {
           this.transactions=data ;
@@ -114,9 +117,10 @@ export class DocumentComponent implements OnInit {
 }
   public getAllExercice()
   {
+    var user=JSON.parse(localStorage.getItem("currentUser"));
     var tab=[];
     var i=0;
-    this.documentService.getExerciceComptable1().subscribe(
+    this.documentService.getExerciceComptable1(user.company).subscribe(
       data => {
         var transactions = this.sortByProperty(data, "Budget");
         tab.push(transactions[0]);
@@ -139,13 +143,14 @@ export class DocumentComponent implements OnInit {
   }
 
   public getExerciceComptable(valueEx:string) {
+    var user=JSON.parse(localStorage.getItem("currentUser"));
     this.exercices=[];
     var tab=[];
     var i=0;
     this.startdateExComp=valueEx.split("-")[0];
     this.enddateExComp=valueEx.split("-")[0];
     this.modelExComp={"startdate":this.startdate,"enddate":this.enddate};
-    this.documentService.getExerciceComptable(this.modelExComp)
+    this.documentService.getExerciceComptable(this.modelExComp,user.company)
       .subscribe(
         data => {
           var transactions = this.sortByProperty(data, "Budget");

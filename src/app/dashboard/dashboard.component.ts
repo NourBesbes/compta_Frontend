@@ -4,6 +4,11 @@ import { Task } from '../lbd/lbd-task-list/lbd-task-list.component';
 import {NotificationService, NotificationOptions} from '../lbd/services/notification.service';
 import { NavbarTitleService } from '../lbd/services/navbar-title.service';
 import {DocumentService} from "../documents/document.service";
+import {Banque} from "../_models/banque";
+import {BanqueService} from "../banque/banque.service";
+import {UserService} from "../_services/user.service";
+import {ConfigService} from "../config/config.service";
+import {TransactionService} from "../transaction/transaction .service";
 
 @Component({
   selector: 'app-dashboard',
@@ -90,21 +95,16 @@ import {DocumentService} from "../documents/document.service";
 })
 export class DashboardComponent implements OnInit {
   public data :any ;
-  public depense : number;
-  public recette : number;
-  public emailChartType: ChartType;
-  public emailChartData: any;
-  public emailChartLegendItems: LegendItem[];
+  public users : number ;
+  public transactions : any ;
+  public budgets : any ;
+  public banques : any ;
 
-  public hoursChartType: ChartType;
-  public hoursChartData: any;
-  public hoursChartOptions: any;
-  public hoursChartResponsive: any[];
-  public hoursChartLegendItems: LegendItem[];
 
 
   constructor(private navbarTitleService: NavbarTitleService, private notificationService: NotificationService
-    ,private documentService:DocumentService) { }
+    ,private banqueService:BanqueService,private userService:UserService,private configService:ConfigService
+  ,private transactionService :TransactionService) { }
 
   public ngOnInit() {
     this.navbarTitleService.updateTitle('Dashboard');
@@ -114,83 +114,24 @@ export class DashboardComponent implements OnInit {
       icon: 'pe-7s-home'
     }));
 
-      this.documentService.getJournalComptable1()
-        .subscribe(
-          data => {
-            this.data=data;
-            this.depense=((data.Depenses.length*100)/(data.Depenses.length+this.data.Recettes.length));
-            console.log(this.depense)
-            this.recette=(data.Recettes.length*100)/(data.Depenses.length+this.data.Recettes.length);
-            console.log(this.recette);
-            console.log("hellllllo");
-            this.emailChartType = ChartType.Pie;
-            this.emailChartData = {
-              labels: ['%', '%'],
-              series: [50, 50]
-            };
-            this.emailChartLegendItems = [
-              {title: 'Open', imageClass: 'fa fa-circle text-info'},
-              {title: 'Bounce', imageClass: 'fa fa-circle text-danger'},
-              {title: 'Unsubscribe', imageClass: 'fa fa-circle text-warning'}
-            ];
+    var user=JSON.parse(localStorage.getItem("currentUser"));
+    // Retrieve banks from the API
+    this.banqueService.getbycompany(user.company).subscribe(banques => {
+      this.banques = banques.length;
+    });
+    this.userService.getBycompany(user.company)
+      .subscribe(
+        data => {
+          this.users = data.length ;
+        });
+    this.configService.getAll().subscribe(budgets => {
+      this.budgets = budgets.length;
+    });
 
-          });
-
-if (this.data) {
-        console.log("hellllllo");
-  this.emailChartType = ChartType.Pie;
-  this.emailChartData = {
-    labels: ['%', '%'],
-    series: [50, 50]
-  };
-  this.emailChartLegendItems = [
-    {title: 'Open', imageClass: 'fa fa-circle text-info'},
-    {title: 'Bounce', imageClass: 'fa fa-circle text-danger'},
-    {title: 'Unsubscribe', imageClass: 'fa fa-circle text-warning'}
-  ];
-}
+    this.transactionService.getAllTransactions(user.company).subscribe(transactions => {
+      this.transactions=transactions.length ;
+    });
+    }
 
 
-
-    this.hoursChartType = ChartType.Line;
-    this.hoursChartData = {
-      labels: ['9:00AM', '12:00AM', '3:00PM', '6:00PM', '9:00PM', '12:00PM', '3:00AM', '6:00AM'],
-      series: [
-        [287, 385, 490, 492, 554, 586, 698, 695, 752, 788, 846, 944],
-        [67, 152, 143, 240, 287, 335, 435, 437, 539, 542, 544, 647],
-        [23, 113, 67, 108, 190, 239, 307, 308, 439, 410, 410, 509]
-      ]
-    };
-    this.hoursChartOptions = {
-      low: 0,
-      high: 800,
-      showArea: true,
-      height: '245px',
-      axisX: {
-        showGrid: false,
-      },
-      lineSmooth: Chartist.Interpolation.simple({
-        divisor: 3
-      }),
-      showLine: false,
-      showPoint: false,
-    };
-    this.hoursChartResponsive = [
-      ['screen and (max-width: 640px)', {
-        axisX: {
-          labelInterpolationFnc: function (value) {
-            return value[0];
-          }
-        }
-      }]
-    ];
-    this.hoursChartLegendItems = [
-      { title: 'Open', imageClass: 'fa fa-circle text-info' },
-      { title: 'Click', imageClass: 'fa fa-circle text-danger' },
-      { title: 'Click Second Time', imageClass: 'fa fa-circle text-warning' }
-    ];
-
-
-
-  }
-}
+   }
