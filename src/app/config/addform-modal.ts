@@ -94,8 +94,8 @@ export class BudgetAddModal implements ModalComponent<CustomModalContext>,OnInit
   }
 
   add() {
-
-    this.configService.add(this.model)
+    var user=JSON.parse(localStorage.getItem("currentUser"));
+    this.configService.add(this.model,user.company)
       .subscribe(
         data => {
 

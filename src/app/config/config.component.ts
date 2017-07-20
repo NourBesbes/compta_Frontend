@@ -38,9 +38,10 @@ export class ConfigComponent {
               private alertService: AlertService,public modal: Modal,private notificationService: NotificationService) { }
 
   public ngOnInit() {
+    var user=JSON.parse(localStorage.getItem("currentUser"));
     this.navbarTitleService.updateTitle('Gestion des budgets');
     // Retrieve banks from the API
-    this.configService.getAll().subscribe(budgets => {
+    this.configService.getAll(user.company).subscribe(budgets => {
       this.budgets = budgets;
     });
 

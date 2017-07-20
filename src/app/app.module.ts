@@ -70,8 +70,8 @@ const appRoutes: Routes = [
 
 @NgModule({
   declarations: [
-    BanquePipe,
     AppComponent,
+    BanquePipe,
     BudgetPipe,
     TransactionPipe,
     UserPipe,

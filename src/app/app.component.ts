@@ -24,7 +24,6 @@ public bool:boolean=true;
 
       { type: NavItemType.Sidebar, title: 'Configuration', routerLink: 'config', iconClass: 'pe-7s-tools' },
       { type: NavItemType.Sidebar, title: 'Documents Comptables', routerLink: 'doc', iconClass: 'pe-7s-copy-file' },
-      { type: NavItemType.NavbarLeft, title: 'Dashboard', iconClass: 'fa fa-dashboard' },
       { type: NavItemType.Sidebar, title: 'Administration', routerLink: 'admin', iconClass: 'pe-7s-lock' },
       { type: NavItemType.Sidebar, title: 'Super Administration', routerLink: 'superadmin', iconClass: 'pe-7s-lock' },
 

@@ -124,7 +124,7 @@ export class DashboardComponent implements OnInit {
         data => {
           this.users = data.length ;
         });
-    this.configService.getAll().subscribe(budgets => {
+    this.configService.getAll(user.company).subscribe(budgets => {
       this.budgets = budgets.length;
     });
 

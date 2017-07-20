@@ -15,8 +15,8 @@ export class ConfigService {
   constructor(private http: Http) {
   }
 
-  getAll() {
-    return this.http.get('http://localhost:3000/budget/listall')
+  getAll(id) {
+    return this.http.get('http://localhost:3000/budget/listall/'+id)
       .map(res => res.json());
   }
   getSousBudget(name) {
@@ -34,13 +34,13 @@ export class ConfigService {
       .catch((error:any) => Observable.throw(error.json().error || 'Server error'));
   }
 
-  add(budget)
+  add(budget,id)
   {   var headers = new Headers();
     headers.append('Content-Type', 'application/json');
     console.log("Hello From ConfigService; Méthode Add");
     console.log(budget);
     //noinspection TypeScriptValidateTypes
-    return this.http.post('http://localhost:3000/budget/addbudget',  JSON.stringify(budget), {headers: headers}).
+    return this.http.post('http://localhost:3000/budget/addbudget/'+id,  JSON.stringify(budget), {headers: headers}).
     map((res) =>res.json());
   }
   addSousBudget(budget)
