@@ -95,7 +95,8 @@ export class BudgetModal implements ModalComponent<CustomModalContext>,OnInit {
   }
   public ngOnInit() {
     console.log("hello from add model"+this.context);
-    this.configService.getAll().subscribe(budgets => {
+    var user=JSON.parse(localStorage.getItem("currentUser"));
+    this.configService.getAll(user.company).subscribe(budgets => {
       this.budgets = budgets;
     });
     this.sousBudgets=this.SelectedBudget["sousBudget"];
