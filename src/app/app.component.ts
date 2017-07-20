@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import { NavItem, NavItemType } from './lbd/lbd.module';
+import {CompanyService} from "./_services/company.service";
 
 @Component({
   selector: 'app-root',
@@ -7,14 +8,15 @@ import { NavItem, NavItemType } from './lbd/lbd.module';
 })
 export class AppComponent implements OnInit {
   public navItems: NavItem[];
-public bool:boolean=true;
-  constructor() {
+
+  company:any={name:'',matricule:''};
+  constructor(private companyService:CompanyService) {
   }
 
   public ngOnInit(): void {
-    if (!localStorage.getItem("currentUser"))
-    this.bool=false;
-    else this.bool=true;
+    var user=JSON.parse(localStorage.getItem("currentUser"));
+    this.companyService.getCompany(user.company).subscribe(data => this.company=data);
+
 
     this.navItems = [
       { type: NavItemType.Sidebar, title: 'Dashboard', routerLink: 'dashboard', iconClass: 'pe-7s-graph' },

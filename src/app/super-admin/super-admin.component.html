@@ -1,13 +1,56 @@
-<div class="col-md-6 col-md-offset-3">
-  <h1>Hi Super Admin!</h1>
 
-  <h3>All registered companies:</h3>
-  <ul>
-    <li *ngFor="let companie of companies">
-      {{companie.name}}
-      <a (click)="deleteCompani(companie._id)">Delete</a>
-      <a (click)="viewCompani(companie._id)">View</a>
-    </li>
-  </ul>
 
-</div>
+
+<span defaultOverlayTarget>
+<div class="container-fluid" >
+
+  <div class="row">
+
+    <div class="pull-right">
+      <div class="col-lg-10">
+
+        <div class="input-group">
+          <input type="text" class="form-control" [(ngModel)]="searchText"  placeholder="search by name">
+      <span class="input-group-btn">
+        <button class="btn btn-secondary"  type="button">Search!</button>
+      </span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <br>
+  <div class="content table-responsive table-full-width">
+    <table class="table table-hover table-striped">
+      <thead>
+      <tr>
+        <th>Nom</th>
+        <th>Matricule</th>
+        <th>Adresse</th>
+
+
+      </tr>
+      </thead>
+      <tbody>
+      <tr   *ngFor="let companie of companies| paginate: { itemsPerPage: 10, currentPage: p }">
+        <td   >{{companie.name}}</td>
+        <td >{{companie.matricule}}</td>
+        <td >{{companie.adress}}</td>
+
+
+        <td class="td-actions text-right">
+          <button type="button" (click)="viewCompani(companie._id)" rel="tooltip" title="View Company"  class="btn btn-info btn-simple btn-xs">
+            <i class="fa fa-edit"></i>
+          </button>
+          <button type="button" rel="tooltip" title="Remove Company"  (click)="deleteCompani(companie._id)" class="btn btn-danger btn-simple btn-xs">
+            <i class="fa fa-times"></i>
+          </button>
+        </td>
+
+      </tr>
+      </tbody>
+    </table>
+    <p align="right"> <pagination-controls (pageChange)="p = $event"></pagination-controls></p>
+
+  </div>
+  </div>
+  </span>

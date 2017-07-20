@@ -33,6 +33,7 @@ export class SuperAdminComponent implements OnInit {
     this.currentUser.company=id;
     localStorage.setItem('currentUser', JSON.stringify(this.currentUser));
     this.router.navigate(['/dashboard']);
+    window.location.reload();
 
   }
 }

@@ -56,7 +56,7 @@ export class TransactionComponent implements OnInit {
     var user=JSON.parse(localStorage.getItem("currentUser"));
     // Retrieve transactions from the API
     this.transactionService.getAllTransactions(user.company).subscribe(transactions => {
-
+console.log(transactions);
       transactions.forEach(function (j) {
         var x ;
         var Montant ;
@@ -74,7 +74,7 @@ export class TransactionComponent implements OnInit {
         };
         self.transactions.push(x)
       })
-
+console.log("hi");
     // this.transactions = transactions;
     });
 
