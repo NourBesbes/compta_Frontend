@@ -14,9 +14,10 @@ export class AppComponent implements OnInit {
   }
 
   public ngOnInit(): void {
-    var user=JSON.parse(localStorage.getItem("currentUser"));
-    this.companyService.getCompany(user.company).subscribe(data => this.company=data);
-
+    if(JSON.parse(localStorage.getItem("currentUser"))) {
+      var user= JSON.parse(localStorage.getItem("currentUser"));
+      this.companyService.getCompany(user.company).subscribe(data => this.company = data);
+    }
 
     this.navItems = [
       { type: NavItemType.Sidebar, title: 'Dashboard', routerLink: 'dashboard', iconClass: 'pe-7s-graph' },

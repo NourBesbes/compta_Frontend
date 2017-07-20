@@ -86,8 +86,9 @@ company:Company;
           this.model.company=compani._id;
           this.model.role="user";
     var json= JSON.parse(localStorage.getItem("image"));
-    this.model.imagePath=json.lien;
-    localStorage.removeItem("image");
+    if(json) {this.model.imagePath=json.lien;
+    localStorage.removeItem("image");}
+    console.log(this.model);
           this.userService.create(this.model)
             .subscribe(
               data => {
